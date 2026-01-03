@@ -1,0 +1,17 @@
+html {
+  background-image: radial-gradient(
+    circle farthest-corner at -4% -12.9%,
+    rgb(26, 40, 49) 0.3%,
+    rgb(9, 15, 22) 90.2%
+  );
+  background-attachment: fixed;
+  font-family: system-ui;
+  margin: 0px;
+  color: #fff;
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  height: 100%;
+}
