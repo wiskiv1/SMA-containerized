@@ -8,22 +8,22 @@
 /*
 THIS FILE IS THE STOCK MARKET
 
-TODO 
-[X] add product
-[ ] change product
-[X] delete product
-[X] sell product
-[X] get products (tri, name, standard price)
-[X] get all products (tri, name, standard price, crash price)
-[X] get current prices (tri, current price)
-[X] get prices history (if needed by the dashboard)?
-[ ] clear price history
-[X] start market
-[X] pause market
-[X] set interval
-[X] get interval
-[X] toggle crash
-[X] is crash?
+TODO API 
+[X]  [X] add product
+[ ]  [ ] change product
+[X]  [ ] delete product
+[X]  [X] sell product
+[X]  [X] get products (tri, name, standard price)
+[X]  [X] get all products (tri, name, standard price, crash price)
+[X]  [X] get current prices (tri, current price)
+[X]  [X] get prices history (if needed by the dashboard)?
+[ ]  [ ] clear price history
+[X]  [X] start market
+[X]  [X] pause market
+[X]  [ ] set interval
+[X]  [X] get interval
+[X]  [X] toggle crash
+[X]  [X] is crash?
 */
 "use server";
 import Product from "./Product";
@@ -35,10 +35,38 @@ const products: Map<string, Product> = new Map();
 const prices = new Prices();
 const sales = new Sales();
 const indexes = new Indexes();
-let interval: number = 60 * 1000;
+let interval: number;
 let intervalID: NodeJS.Timeout;
 
+seed();
+
 let test = 20;
+
+/**
+ * seed the products and other objects
+ */
+function seed() {
+  console.log("seeding");
+  // products
+  products.set("JUP", new Product("JUP", "Jupiler", 2.5, 1.25, 1));
+  products.set("DUV", new Product("DUV", "Duvel", 4, 1.5, 1.5));
+  products.set("CHO", new Product("CHO", "Chouffe", 4, 1.5, 1.5));
+  products.set("KWA", new Product("KWA", "Kwak", 4, 1.5, 1.5));
+  products.set("HOE", new Product("HOE", "Hoegaarden Blond", 3, 1, 1));
+  products.set("OME", new Product("OME", "Omer", 4, 1.5, 1.5));
+  products.set("LIN", new Product("LIN", "Lindemans Kriek", 2, 1, 1));
+  products.set("KAS", new Product("KAS", "Kasteelbier Rouge", 4, 1.5, 1.5));
+
+  // other variables
+  interval = indexes.refresh_period * 1000;
+
+  // prices
+  prices.seed(getDefaultPrices());
+
+  // indexes
+  indexes.new(false);
+  indexes.end();
+}
 
 /**
  * Add a new product to the market
@@ -48,14 +76,12 @@ let test = 20;
  * @param c crash price
  * @param m minimum price
  */
-export async function addProduct(
-  t: string,
-  n: string,
-  p: number,
-  c: number,
-  m: number
-) {
+export async function addProduct(t: string, n: string, p: number, c: number, m: number) {
+  console.log("adding product " + t);
   products.set(t, new Product(t, n, p, c, m));
+
+  //stupid workaround for now
+  prices.seed(getDefaultPrices());
 }
 
 export async function changeProduct() {}
@@ -69,16 +95,14 @@ export async function addSale(tri: string) {
   sales.new(tri, current_price);
 }
 
-export async function getProducts(): Promise<
-  { tri: string; name: string; default_price: number }[]
-> {
-  const res: { tri: string; name: string; default_price: number }[] = [];
+export async function getProducts(): Promise<{ tri: string; name: string; defaultPrice: number }[]> {
+  const res: { tri: string; name: string; defaultPrice: number }[] = [];
 
   for (const [tri, product] of products) {
-    const drink: { tri: string; name: string; default_price: number } = {
+    const drink: { tri: string; name: string; defaultPrice: number } = {
       tri: tri,
       name: product.name,
-      default_price: product.defaultPrice,
+      defaultPrice: product.defaultPrice,
     };
     res.push(drink);
   }
@@ -104,6 +128,8 @@ export async function clearPriceHistory() {} // maybe not implement yet
  * using setInterval every X milliseconds
  */
 export async function startMarket() {
+  indexes.new();
+
   intervalID = setInterval(() => {
     if (indexes.is_time_for_next()) {
       new_interval();
@@ -111,6 +137,49 @@ export async function startMarket() {
   }, 1000);
 }
 
+export async function pauseMarket() {
+  indexes.end();
+  clearInterval(intervalID);
+}
+
+/**
+ * change how frequently prices change
+ * @param i new interval in ms
+ * @returns interval between price changes and when the next price change wil be
+ */
+export async function setIntervalTime(i: number): Promise<{ int: number; when: number }> {
+  pauseMarket();
+  interval = i;
+  indexes.refresh_period = Math.floor(i / 1000);
+  startMarket();
+
+  return getIntervalTime();
+}
+
+/**
+ * @returns interval between price changes and when the next price change wil be
+ */
+export async function getIntervalTime(): Promise<{ int: number; when: number }> {
+  const time = Date.now() + indexes.time_until_next(true);
+  return {
+    int: interval,
+    when: time,
+  };
+}
+
+export async function toggleCrash() {
+  if (indexes.is_krach()) {
+    new_interval(false);
+  } else {
+    new_interval(true);
+  }
+}
+
+export async function isCrash(): Promise<boolean> {
+  return indexes.is_krach();
+}
+
+/* --- HELP FUNCTIONS --- */
 function new_interval(set_krach?: boolean) {
   indexes.end();
   indexes.new(set_krach);
@@ -133,6 +202,14 @@ function new_interval(set_krach?: boolean) {
   //update_sales(prices.last(indexes)); ==> No localstorage client has to request new prices
 }
 
+function getDefaultPrices(): Map<string, number> {
+  const res = new Map();
+  for (const [drink, product] of products) {
+    res.set(drink, product.defaultPrice);
+  }
+  return res;
+}
+
 function getKrachPrices(): Map<string, number> {
   const res = new Map();
   for (const [drink, product] of products) {
@@ -141,41 +218,7 @@ function getKrachPrices(): Map<string, number> {
   return res;
 }
 
-export async function pauseMarket() {
-  clearInterval(intervalID);
-}
-
-/**
- * change how frequently prices change
- * @param i new interval in ms
- */
-export async function setIntervalTime(i: number) {
-  pauseMarket();
-  interval = i;
-  indexes.refresh_period = i;
-  startMarket();
-}
-
-/**
- * @returns interval between price changes
- */
-export async function getIntervalTime(): Promise<number> {
-  return interval;
-}
-
-export async function toggleCrash() {
-  if (indexes.is_krach()) {
-    new_interval(false);
-  } else {
-    new_interval(true);
-  }
-}
-
-export async function isCrash(): Promise<boolean> {
-  return indexes.is_krach();
-}
-
-/* --- TEST FUNCTIONS -- */
+/* --- TEST FUNCTIONS --- */
 export async function get() {
   return test;
 }

@@ -31,7 +31,7 @@ export default class Prices {
   }
 
   append(prices_dict: Map<string, number>) {
-    for (const drink in this.prices_history) {
+    for (const drink of this.prices_history.keys()) {
       if (prices_dict.has(drink)) {
         this.prices_history.get(drink)?.push(prices_dict.get(drink) as number);
       }
@@ -51,26 +51,20 @@ export default class Prices {
     const total_sales = new_sales.length;
 
     const sales_per_drink = new Sales().cumulative_sales(new_sales);
-    for (const drink in former_prices) {
-      if (!(drink in sales_per_drink)) {
+    for (const drink of former_prices.keys()) {
+      if (!sales_per_drink.has(drink)) {
         sales_per_drink.set(drink, 0);
       }
     }
 
     const average_sales = total_sales / this.prices_history.size;
     const maximum = Math.max(...Object.values(sales_per_drink));
-    const centered_sales = this.center_sales(
-      sales_per_drink,
-      average_sales,
-      maximum
-    );
+    const centered_sales = this.center_sales(sales_per_drink, average_sales, maximum);
 
     // tend to amplification's value when total_sales goes to infinity
     // those points are then shared between the drinks
-    const max_var_per_minute =
-      (Math.atan(total_sales / 10) / (Math.PI / 2)) * this.amplification;
-    const max_var =
-      (max_var_per_minute * milliseconds_since_last_update) / 1000 / 60;
+    const max_var_per_minute = (Math.atan(total_sales / 10) / (Math.PI / 2)) * this.amplification;
+    const max_var = (max_var_per_minute * milliseconds_since_last_update) / 1000 / 60;
     for (const [tri, val] of centered_sales) {
       centered_sales.set(tri, val * max_var);
     }
@@ -78,11 +72,7 @@ export default class Prices {
     return centered_sales;
   }
 
-  center_sales(
-    sales_per_drink: Map<string, number>,
-    average: number,
-    max: number
-  ): Map<string, number> {
+  center_sales(sales_per_drink: Map<string, number>, average: number, max: number): Map<string, number> {
     max = Math.max(max, 1);
 
     const centered_sales: Map<string, number> = new Map();
@@ -112,6 +102,8 @@ export default class Prices {
   last(indexes: Indexes): Map<string, number> {
     const number_of_indexes = indexes.party_index.length;
 
+    if (number_of_indexes === 0) return this.getCurrentPrices(); // fallback for if market hasn't started yet
+
     const last_prices: Map<string, number> = new Map();
     for (const [drink, hist] of this.prices_history) {
       if (hist.length == number_of_indexes) {
@@ -123,25 +115,16 @@ export default class Prices {
     return last_prices;
   }
 
-  compute_new_prices(
-    new_sales: Sale[],
-    indexes: Indexes,
-    default_prices: Map<string, Product>
-  ): Map<string, number> {
+  compute_new_prices(new_sales: Sale[], indexes: Indexes, default_prices: Map<string, Product>): Map<string, number> {
     const last_non_krach_party_index = indexes.last_non_krach_party_index();
-    const milliseconds_since_last_update =
-      Date.now() - last_non_krach_party_index.time_start.getTime();
+    const milliseconds_since_last_update = Date.now() - last_non_krach_party_index.time_start.getTime();
 
     const former_prices = this.last_non_krach(indexes);
 
-    const price_var = this.price_variation(
-      new_sales,
-      former_prices,
-      milliseconds_since_last_update
-    );
+    const price_var = this.price_variation(new_sales, former_prices, milliseconds_since_last_update);
 
     const new_prices: Map<string, number> = new Map();
-    for (const drink in this.prices_history) {
+    for (const drink of this.prices_history.keys()) {
       let min_price = 0;
       const product = default_prices.get(drink);
       if (product && "minPrice" in product) {
@@ -149,11 +132,7 @@ export default class Prices {
       }
 
       const newPrice = round(
-        Math.max(
-          (former_prices.get(drink) as number) *
-            ((1 + (price_var.get(drink) as number)) / 100),
-          min_price
-        ),
+        Math.max((former_prices.get(drink) as number) * (1 + (price_var.get(drink) as number) / 100), min_price),
         2
       );
       new_prices.set(drink, newPrice);
@@ -188,6 +167,16 @@ export default class Prices {
       prices.set(tri, arr[arr.length - 1]);
     }
     return prices;
+  }
+
+  /**
+   * seed the prices object
+   * @param prices_dict seed prices
+   */
+  seed(prices_dict: Map<string, number>) {
+    for (const [tri, price] of prices_dict) {
+      this.prices_history.set(tri, [price, price]);
+    }
   }
 }
 

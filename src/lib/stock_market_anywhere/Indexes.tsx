@@ -24,12 +24,13 @@ export default class Indexes {
     return this.time_until_next() < 0;
   }
 
-  time_until_next(): number {
-    const milliseconds_remaining =
-      this.last().time_start.getTime() +
-      this.refresh_period * 1000 -
-      Date.now();
-    return Math.ceil(milliseconds_remaining / 1000);
+  time_until_next(ms = false): number {
+    const milliseconds_remaining = this.last().time_start.getTime() + this.refresh_period * 1000 - Date.now();
+    if (ms) {
+      return milliseconds_remaining;
+    } else {
+      return Math.ceil(milliseconds_remaining / 1000);
+    }
   }
 
   new(set_krach?: boolean) {
