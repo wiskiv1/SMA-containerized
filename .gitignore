@@ -43,4 +43,7 @@ next-env.d.ts
 # Original Stock Market Anywhere
 /Stock-Market-Anywhere
 /Stock-Market-Anywhere/*
+
+# editor and personal prettier config
 /.vscode
+.prettierrc
