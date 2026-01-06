@@ -4,10 +4,9 @@
  * based on page_dashboard.js by Marc Bresson
  */
 /* --- GLOBAL VARIABLES --- */
-var minuterie_display_new_curve = new Minuterie(2, display_new_curve);
+var minuterie_display_new_curve = new Minuterie(20, display_new_curve);
 //no listeners => dont use localstorage
 var prices_history = {};
-var indexes; // => why does it need the indexes object?
 var is_krach = false;
 let products;
 let interval = 60000;
