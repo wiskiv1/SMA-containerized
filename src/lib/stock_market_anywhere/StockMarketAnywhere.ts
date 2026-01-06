@@ -6,30 +6,34 @@
  */
 
 /*
-THIS FILE IS THE STOCK MARKET
+  THIS FILE IS THE STOCK MARKET
 
-TODO API 
-[X]  [X] add product
-[ ]  [ ] change product
-[X]  [ ] delete product
-[X]  [X] sell product
-[X]  [X] get products (tri, name, standard price)
-[X]  [X] get all products (tri, name, standard price, crash price)
-[X]  [X] get current prices (tri, current price)
-[X]  [X] get prices history (if needed by the dashboard)?
-[ ]  [ ] clear price history
-[X]  [X] start market
-[X]  [X] pause market
-[X]  [ ] set interval
-[X]  [X] get interval
-[X]  [X] toggle crash
-[X]  [X] is crash?
-*/
+  TODO API 
+  [X]  [X] add product
+  [ ]  [ ] change product
+  [X]  [ ] delete product
+  [X]  [X] sell product
+  [X]  [X] get products (tri, name, standard price)
+  [X]  [X] get all products (tri, name, standard price, crash price)
+  [X]  [X] get current prices (tri, current price)
+  [X]  [X] get prices history (if needed by the dashboard)?
+  [ ]  [ ] clear price history
+  [X]  [X] start market
+  [X]  [X] pause market
+  [X]  [ ] set interval
+  [X]  [X] get interval
+  [X]  [X] toggle crash
+  [X]  [X] is crash?
+  [ ]      get state
+  [ ]  [ ] plan party => how to auto start the party?
+  */
 "use server";
 import Product from "./Product";
 import Prices from "./Prices";
 import Sales from "./Sales";
 import Indexes from "./Indexes";
+
+type State = "running" | "planned" | "paused" | "x";
 
 const products: Map<string, Product> = new Map();
 const prices = new Prices();
@@ -37,10 +41,9 @@ const sales = new Sales();
 const indexes = new Indexes();
 let interval: number;
 let intervalID: NodeJS.Timeout;
+let status: State = "x";
 
 seed();
-
-let test = 20;
 
 /**
  * seed the products and other objects
@@ -128,6 +131,8 @@ export async function clearPriceHistory() {} // maybe not implement yet
  * using setInterval every X milliseconds
  */
 export async function startMarket() {
+  status = "running";
+  console.log(status);
   indexes.new();
 
   intervalID = setInterval(() => {
@@ -138,6 +143,8 @@ export async function startMarket() {
 }
 
 export async function pauseMarket() {
+  status = "paused";
+  console.log(status);
   indexes.end();
   clearInterval(intervalID);
 }
@@ -179,6 +186,15 @@ export async function isCrash(): Promise<boolean> {
   return indexes.is_krach();
 }
 
+export async function getPartyStatus() {
+  if (status == "x") {
+    return " " + Math.random();
+  }
+  return status;
+}
+
+export async function planParty(when: Date) {}
+
 /* --- HELP FUNCTIONS --- */
 function new_interval(set_krach?: boolean) {
   indexes.end();
@@ -216,16 +232,4 @@ function getKrachPrices(): Map<string, number> {
     res.set(drink, product.crashPrice);
   }
   return res;
-}
-
-/* --- TEST FUNCTIONS --- */
-export async function get() {
-  return test;
-}
-
-export async function set() {
-  intervalID = setInterval(() => {
-    test = Math.floor(Math.random() * 10);
-    console.log(test);
-  }, 10000);
 }

@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:worker": "nodemon --watch src/stock_market_anywhere --ext ts,tsx --exec tsx src/stock_market_anywhere/worker.ts",
+    "dev": "concurrently \"npm run dev:worker\" \"next dev\"",
     "build": "next build",
     "start": "next start",
+    "start-alt": "concurrently \"node src/stock_market_anywhere/worker.js\" \"next start\"",
     "lint": "eslint"
   },
   "dependencies": {
@@ -18,9 +20,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "nodemon": "^3.1.11",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
