@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Script from "next/script";
 import "./page.css";
 
 export default function Dashboard() {
@@ -56,6 +57,14 @@ export default function Dashboard() {
           </table>
         </div>
       </div>
+      <Script src="/js/external_src/chartjs.3.9.1.min.js" strategy="beforeInteractive" />
+      <Script src="/js/external_src/luxon.1.2.0.min.js" strategy="beforeInteractive" />
+      <Script src="/js/external_src/chartjs-adapter-luxon.min.js" strategy="beforeInteractive" />
+
+      <Script src="/js/dashboard_chart.js" />
+      <Script src="/js/countdown_MB.js" />
+      <Script src="/js/sale_animation.js" />
+      <Script src="/js/dashboard.js" />
     </div>
   );
 }
