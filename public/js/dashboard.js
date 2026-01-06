@@ -56,12 +56,11 @@ async function loop() {
   const timeLeft = nextInterval - Date.now(); // time (ms) left till next interval
 
   // check for crash
-  // let data = await fetch("/api/isCrash");
-  // data = await data.json();
+  let data = await fetch("/api/isCrash");
+  data = await data.json();
 
   // if new interval or if crash status has changed
-  //if (timeLeft < 0 || data.is_crash != is_krach) {
-  if (timeLeft < 0) {
+  if (timeLeft < 0 || data.is_crash != is_krach) {
     // get new interval information
     let intervalData = await (await fetch("/api/getInterval")).json();
     interval = intervalData.interval;
@@ -74,9 +73,7 @@ async function loop() {
       prices_history[product.tri] = product.price;
     }
 
-    // get new index information => how do we do this?
-
-    // is_krach = data.is_crash; ------------------------------------------------------------ LOOK HERE
+    is_krach = data.is_crash;
 
     // update dashboard
     add_new_prices_to_chart();

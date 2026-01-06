@@ -5,6 +5,7 @@
 let products;
 let interval;
 let nextInterval;
+var is_krach;
 var sale_buttons = {};
 
 /**
@@ -17,11 +18,23 @@ async function setup() {
 
   buildSaleInterface();
 
-  // handles krach
+  // check if already crashing
+  let crash = await (await fetch("/api/isCrash")).json();
+  is_krach = crash.is_crash;
+  if (is_krach) {
+    html_el.classList.add("active_krach");
+  }
+
+  // add crash event listener
   html_el = document.getElementsByTagName("html")[0];
   krach_button = document.getElementById("krach");
   krach_button.addEventListener("click", async () => {
-    fetch("/api/admin/toggleCrash");
+    let data = await (await fetch("/api/admin/toggleCrash")).json();
+    if (data.is_crash) {
+      html_el.classList.add("active_krach");
+    } else {
+      html_el.classList.remove("active_krach");
+    }
   });
 
   // get interval information
@@ -43,6 +56,19 @@ function loop() {
   const timeLeft = nextInterval - Date.now(); // time (ms) left till next interval
 
   update_countdown_new_price(timeLeft);
+
+  //check if other console has activated a crash
+  fetch("/api/isCrash").then(async (resp) => {
+    let data = await resp.json();
+    if (data.is_crash != is_krach) {
+      is_krach = data.is_crash;
+      if (is_krach) {
+        html_el.classList.add("active_krach");
+      } else {
+        html_el.classList.remove("active_krach");
+      }
+    }
+  });
 
   if (timeLeft < 0) {
     update_prices();
@@ -92,10 +118,8 @@ function buildSaleInterface() {
 }
 
 async function update_prices() {
-  console.log("updateing prices");
   let response = await fetch("/api/getCurrentPrices");
   let prices = (await response.json()).prices;
-  console.log(prices);
   let new_price = {};
   for (let p of prices) {
     new_price[p.tri] = p.price;
