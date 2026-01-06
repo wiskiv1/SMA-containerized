@@ -4,19 +4,18 @@
  */
 import "./page.css";
 import { redirect } from "next/navigation";
+import { getPartyStatus } from "@/src/lib/stock_market_anywhere/StockMarketAnywhere";
 
-async function getPartyStatus() {
-  // Todo get the status of the party from a database? or file?
-
-  // simple for now
-  return "x";
-}
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const status = await getPartyStatus();
 
   switch (status) {
-    case "started":
+    case "running":
+      redirect("/dashboard");
+      break;
+    case "paused":
       redirect("/dashboard");
       break;
     case "planned":
@@ -27,10 +26,8 @@ export default async function Home() {
   return (
     <div>
       <h1>Stock Market Anywhere</h1>
-      <p>
-        Welcome, this is the home page! If u see this, no party is currently
-        active or scheduled
-      </p>
+      <p>Welcome, this is the home page! If u see this, no party is currently active or scheduled</p>
+      <p>{status}</p>
     </div>
   );
 }
