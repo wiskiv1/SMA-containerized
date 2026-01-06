@@ -42,13 +42,9 @@ const config = {
           borderDash: [5, 5],
         },
       },
-      x: {
-        type: "time",
-        time: {
-          unit: "minute",
-        },
-      },
+      x: {},
     },
+    animation: false,
   },
 };
 
@@ -138,7 +134,7 @@ function init_chart() {
 
 function display_new_curve() {
   let trigram = trigram_to_display();
-  let last_prices = prices_history[trigram].slice(-nbr_of_point_to_display());
+  let last_prices = prices_history[trigram].slice(-minutes_for_points_history);
   let full_name = getProduct(trigram).name;
   let color = getProduct(trigram).color;
 
@@ -148,10 +144,6 @@ function display_new_curve() {
     display_new_curve();
   }
   chart.update();
-}
-
-function nbr_of_point_to_display() {
-  return (minutes_for_points_history * 60) / Math.ceil(interval / 1000);
 }
 
 var next_index_to_display = 0;
