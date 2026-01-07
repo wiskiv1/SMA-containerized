@@ -1,17 +1,21 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "rootDir": "src",
     "noEmit": false,
-    "jsx": "preserve",
-    "lib": ["es2022"],
+    "outDir": "build",
+    "rootDir": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "jsx": "react-jsx",
     "types": ["node"],
-    "plugins": []
+    "paths": {
+      "@/*": ["./*"],
+      "@src/*": ["./src/*"],
+      "@stock_market_anywhere/*": ["./src/stock_market_anywhere/*"]
+    }
   },
-  "include": ["src/market/**/*"],
-  "exclude": ["node_modules", "src/app/**/*"]
+  "include": ["src/stock_market_anywhere/**/*"],
+  "exclude": ["node_modules", ".next"]
 }

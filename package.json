@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:worker": "nodemon --watch src/stock_market_anywhere --ext ts,tsx --exec tsx src/stock_market_anywhere/worker.ts",
     "dev": "concurrently \"npm run dev:worker\" \"next dev\"",
-    "build": "next build",
-    "start": "next start",
-    "start-alt": "concurrently \"node src/stock_market_anywhere/worker.js\" \"next start\"",
+    "dev:nextjs": "next dev",
+    "dev:worker": "nodemon --watch src/stock_market_anywhere --ext ts,tsx --exec tsx src/stock_market_anywhere/worker.ts",
+    "build": "concurrently \"npm run build:worker\" \"next build\"",
+    "build:nextjs": "next build",
+    "build:worker": "tsc -p tsconfig.worker.json && tsc-alias -p tsconfig.worker.json",
+    "start": "concurrently \"npm run start:worker\" \"next start\"",
+    "start:nextjs": "next start",
+    "start:worker": "node build/stock_market_anywhere/worker.js",
     "lint": "eslint"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -25,7 +30,8 @@
     "eslint-config-next": "16.1.1",
     "nodemon": "^3.1.11",
     "tailwindcss": "^4",
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }

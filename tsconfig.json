@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@src/*": ["./src/*"],
+      "@stock_market_anywhere/*": ["./src/stock_market_anywhere/*"]
     }
   },
   "include": [
