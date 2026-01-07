@@ -4,29 +4,6 @@
  *
  * server side components to run the stock market
  */
-
-/*
-  TODO: restrict certain actions to certain states
-
-  TODO API 
-  [X]  [ ] add product
-  [X]  [ ] change product
-  [X]  [ ] delete product
-  [ ]  [ ] sell product
-  [X]  [ ] get products (tri, name, standard price)
-  [~]  [ ] get all products (tri, name, standard price, crash price)
-  [X]  [ ] get current prices (tri, current price)
-  [X]  [ ] get prices history (if needed by the dashboard)?
-  [ ]  [ ] clear price history
-  [ ]  [ ] start market
-  [ ]  [ ] pause market
-  [X]  [ ] set interval
-  [X]  [ ] get interval
-  [ ]  [ ] toggle crash
-  [X]  [ ] is crash?
-  [X]  [ ] get state
-  [ ]  [ ] plan party => how to auto start the party?
-  */
 import Products from "./Products";
 import Sales from "./Sales";
 import PriceCalculator from "./PriceCalculator";
@@ -52,12 +29,21 @@ export default class StockMarkerAnywhere {
   private intervalID?: NodeJS.Timeout;
   private status: MarketState = "off";
   private is_crash = false;
+  private plannedStartTime?: Date;
 
   constructor() {}
 
   /* ------ CORE FUNCTIONS ------ */
 
-  seed(config: SMAconfig) {} //TODO
+  seed(config: SMAconfig) {
+    console.log("--- Seeding Market ---");
+
+    if (config.products) {
+      for (const prod of config.products) {
+        this.addProduct(prod);
+      }
+    }
+  } //TODO
 
   /**
    * add a new Product to the Stock Market
@@ -144,14 +130,19 @@ export default class StockMarkerAnywhere {
     return result;
   }
 
-  planMarket(when: number): void {
-    throw new Error("Method not implemented."); // TODO
+  planMarket(when: Date): MarketState {
+    this.plannedStartTime = new Date(when.getTime());
+    this.status = "planned";
+    return this.getMarketStatus();
   }
 
-  /**start the market */
+  whenMarketOpen(): Date {
+    return this.plannedStartTime ? this.plannedStartTime : new Date(Date.now() - 60000);
+  }
+
+  /**start the market & force start if party is planned*/
   startMarket(): void {
     if (this.status === "running") throw new Error("market already running");
-    // TODO check if market is allowed to start (planned time has elapsed)?
 
     this.status = "running";
     this.new_index(new Date());
@@ -176,6 +167,10 @@ export default class StockMarkerAnywhere {
    * @returns current state of the market
    */
   getMarketStatus(): MarketState {
+    if (this.status === "planned" && this.timeToStart()) {
+      this.startMarket(); // if market open is planned => start the market
+    }
+
     return this.status;
   }
 
@@ -184,7 +179,7 @@ export default class StockMarkerAnywhere {
    * @param int new Time interval in ms
    */
   setIntervalTime(int: number): void {
-    this.indexes.at(-1)!.length = int; // set current interval length
+    if (this.status === "running") this.indexes.at(-1)!.length = int; // set current interval length
     this.intervalLength = int; // set future interval lengths
   }
 
@@ -200,6 +195,7 @@ export default class StockMarkerAnywhere {
    * @returns the time left until the next interval
    */
   TimeUntilNextInterval(ms = false): number {
+    if (this.status === "off" || this.status === "planned") return -1;
     const milliseconds_remaining =
       this.indexes.at(-1)!.time_start.getTime() + this.intervalLength - Date.now();
     if (ms) {
@@ -213,9 +209,8 @@ export default class StockMarkerAnywhere {
    *
    */
   toggleCrash(): boolean {
-    // set this.iscrash variable
-    // start new interval with the crash prizes
-    // return this.is_crash
+    if (this.status !== "running") return this.is_crash; // if not running dont swap
+
     this.is_crash = !this.is_crash;
     this.new_index(this.end_index()); // end current index and start new one at the same timestamp
     return this.is_crash;
@@ -267,6 +262,14 @@ export default class StockMarkerAnywhere {
 
   private isTimeForNext(): boolean {
     return this.TimeUntilNextInterval(true) < 0;
+  }
+
+  /** is it time to open the market? */
+  private timeToStart(): boolean {
+    if (this.status !== "planned") return false;
+
+    const milliseconds_remaining = this.plannedStartTime!.getTime() - Date.now();
+    return milliseconds_remaining < 0;
   }
 }
 

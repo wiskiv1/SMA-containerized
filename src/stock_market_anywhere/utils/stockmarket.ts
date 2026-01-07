@@ -1,4 +1,4 @@
-import { Sale, TimeInterval } from "@src/types/SMA_objects";
+import { Product, Sale, TimeInterval } from "@src/types/SMA_objects";
 
 /**
  * @param sales
@@ -47,4 +47,21 @@ export function lastNonCrashIndex(indexes: TimeInterval[]): number {
   }
 
   return i;
+}
+
+export function isProduct(obj: unknown): obj is Product {
+  if (typeof obj !== "object" || obj === null) {
+    return false;
+  }
+
+  const p = obj as Record<string, unknown>;
+
+  return (
+    typeof p.tri === "string" &&
+    typeof p.name === "string" &&
+    typeof p.defaultPrice === "number" &&
+    typeof p.crashPrice === "number" &&
+    (p.minPrice === undefined || typeof p.minPrice === "number") &&
+    (p.maxPrice === undefined || typeof p.maxPrice === "number")
+  );
 }
