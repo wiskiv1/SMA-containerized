@@ -1,3 +1,0 @@
-/**
- * @author Witse Panneels
- */
