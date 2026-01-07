@@ -43,6 +43,11 @@ export default class StockMarkerAnywhere {
         this.addProduct(prod);
       }
     }
+
+    if (config.calculatorParams) {
+      console.log("Loading Calculator Parameters");
+      this.calculator.setParameters(config.calculatorParams);
+    }
   } //TODO
 
   /**
@@ -218,6 +223,14 @@ export default class StockMarkerAnywhere {
 
   isCrash(): boolean {
     return this.is_crash;
+  }
+
+  getCalculatorName(): string {
+    return this.calculator.name;
+  }
+
+  getCalculatorVersion(): string {
+    return this.calculator.version;
   }
 
   /* ------ PRIVATE FUNCTIONS ------ */

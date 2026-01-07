@@ -6,6 +6,7 @@ import HealthHandler from "./handlers/health";
 import MarketHandler from "./handlers/market";
 import ProductHandler from "./handlers/product";
 import IntervalHandler from "./handlers/interval";
+import CalculatorHandler from "./handlers/calculator";
 import { json } from "../utils/networking";
 
 type Route = {
@@ -30,6 +31,10 @@ const routes: Route[] = [
   {
     prefix: "/interval/",
     handler: IntervalHandler,
+  },
+  {
+    prefix: "/calculator/",
+    handler: CalculatorHandler,
   },
 ];
 

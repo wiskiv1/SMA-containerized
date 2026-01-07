@@ -7,7 +7,7 @@ export type MarketState = "running" | "planned" | "paused" | "off";
 export type SMAconfig = {
   interval?: number; // default 60 seconds
   products?: Product[];
-  calculaterParams?: object;
+  calculatorParams?: object;
 };
 
 export type Product = {

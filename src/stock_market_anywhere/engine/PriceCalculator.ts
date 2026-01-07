@@ -21,6 +21,8 @@ export default PriceCalculator;
  * let the client change behavior using get and set parameters
  */
 export interface IPriceCalculator {
+  name: string;
+  version: string;
   calculateNewPrices(
     products: Products,
     sales: Sales,
@@ -28,5 +30,5 @@ export interface IPriceCalculator {
     isCrash: boolean
   ): Map<string, number>;
   getParameters(): object;
-  setParameters(): void;
+  setParameters(params: object): void;
 }

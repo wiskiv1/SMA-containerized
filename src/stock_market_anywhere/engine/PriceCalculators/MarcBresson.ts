@@ -7,6 +7,8 @@ import Sales from "../Sales";
  * Price Calculator using the original SMA algorithm by Marc Bresson
  */
 export default class PriceCalculator implements IPriceCalculator {
+  name = "OG SMA calculator by Marc Bresson";
+  version = "v1.0";
   /**
    * Calculate new prices based on the current state
    * @param products
@@ -26,7 +28,7 @@ export default class PriceCalculator implements IPriceCalculator {
     throw new Error("Method not implemented.");
   }
 
-  setParameters(): void {
+  setParameters(params: object): void {
     throw new Error("Method not implemented.");
   }
 }

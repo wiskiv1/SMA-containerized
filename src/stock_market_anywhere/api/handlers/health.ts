@@ -2,6 +2,7 @@
  * @author Witse Panneels
  */
 import http from "http";
+import { market } from "@src/stock_market_anywhere/engine/StockMarketAnywhere";
 import { json } from "../../utils/networking";
 
 export default function HealthHandler(req: http.IncomingMessage, res: http.ServerResponse, subPath: string) {
@@ -14,6 +15,7 @@ export default function HealthHandler(req: http.IncomingMessage, res: http.Serve
       SMA: {
         name: process.env.npm_package_name,
         version: process.env.npm_package_version,
+        calculator: { name: market.getCalculatorName(), version: market.getCalculatorVersion() },
       },
       meta: {
         success: true,
