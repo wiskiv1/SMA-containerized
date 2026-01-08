@@ -5,8 +5,8 @@ import { TimeInterval } from "@/src/types/SMA_objects";
 add your own PriceCalculators here! Make sure that the implement the interface  
 use code comments to select which calculator you want to use in production
  */
-// import PriceCalculator from "./PriceCalculators/MarcBresson";
-import PriceCalculator from "./PriceCalculators/PartyBroker";
+import PriceCalculator from "./PriceCalculators/MarcBresson";
+// import PriceCalculator from "./PriceCalculators/PartyBroker";
 
 export default PriceCalculator;
 
