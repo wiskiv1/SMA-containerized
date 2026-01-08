@@ -23,12 +23,7 @@ export default PriceCalculator;
 export interface IPriceCalculator {
   name: string;
   version: string;
-  calculateNewPrices(
-    products: Products,
-    sales: Sales,
-    indexes: TimeInterval[],
-    isCrash: boolean
-  ): Map<string, number>;
+  calculateNewPrices(products: Products, sales: Sales, indexes: TimeInterval[], isCrash: boolean): Map<string, number>;
   getParameters(): object;
   setParameters(params: object): void;
 }

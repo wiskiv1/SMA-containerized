@@ -35,6 +35,7 @@ export function round(x: number, n_digit: number): number {
  * @returns index
  */
 export function lastNonCrashIndex(indexes: TimeInterval[]): number {
+  if (indexes.length == 1) return 0;
   let i = 0;
 
   if (indexes.at(-1)!.time_end == undefined) {
@@ -46,7 +47,7 @@ export function lastNonCrashIndex(indexes: TimeInterval[]): number {
     i++;
   }
 
-  return i;
+  return i - 1;
 }
 
 export function isProduct(obj: unknown): obj is Product {

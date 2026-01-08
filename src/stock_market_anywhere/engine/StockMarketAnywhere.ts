@@ -152,7 +152,9 @@ export default class StockMarkerAnywhere {
     this.status = "running";
     this.new_index(new Date());
 
-    this.intervalID = setInterval(this.loop, 500);
+    this.intervalID = setInterval(() => {
+      this.loop();
+    }, 500);
   }
 
   pauseMarket(): void {
@@ -201,8 +203,7 @@ export default class StockMarkerAnywhere {
    */
   TimeUntilNextInterval(ms = false): number {
     if (this.status === "off" || this.status === "planned") return -1;
-    const milliseconds_remaining =
-      this.indexes.at(-1)!.time_start.getTime() + this.intervalLength - Date.now();
+    const milliseconds_remaining = this.indexes.at(-1)!.time_start.getTime() + this.intervalLength - Date.now();
     if (ms) {
       return milliseconds_remaining;
     } else {
@@ -253,12 +254,7 @@ export default class StockMarkerAnywhere {
       is_krach: this.is_crash,
     });
 
-    const newPrices = this.calculator.calculateNewPrices(
-      this.products,
-      this.sales,
-      this.indexes,
-      this.is_crash
-    );
+    const newPrices = this.calculator.calculateNewPrices(this.products, this.sales, this.indexes, this.is_crash);
 
     // if price calculator changed the crash state, change it without starting a new interval
     const c = this.indexes.at(-1);
