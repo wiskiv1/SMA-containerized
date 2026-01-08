@@ -1,0 +1,145 @@
+/* =========================
+   STATUS PAGE
+   ========================= */
+
+.status-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #e5e7eb;
+}
+
+.status-card {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.status-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.status-subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #cbd5f5;
+  margin-bottom: 1.5rem;
+}
+
+.landing-footer {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #64748b;
+}
+
+/* =========================
+   BADGE VARIANTS
+   ========================= */
+
+.status-badge {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: 0.35rem 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+}
+
+.status-badge--neutral {
+  background: linear-gradient(
+    140deg,
+    rgba(47, 82, 140, 0.15) -4.8%,
+    rgba(59, 131, 246, 0.4) 72.7%,
+    rgb(59, 131, 246) 100%
+  );
+  color: white;
+}
+
+.status-badge--success {
+  background: linear-gradient(
+    2500deg,
+    rgba(20, 76, 41, 0.15) -4.8%,
+    rgba(34, 197, 94, 0.4) 72.7%,
+    rgb(34, 197, 94) 100%
+  );
+  color: white;
+}
+
+.status-badge--warning {
+  background: linear-gradient(50deg, rgba(112, 85, 6, 0.15) -4.8%, rgba(234, 179, 8, 0.4) 72.7%, rgb(234, 178, 8) 100%);
+  color: white;
+}
+
+.status-badge--error {
+  background: linear-gradient(140deg, rgb(239, 68, 68, 0.15) -4.8%, rgba(255, 46, 46, 0.6) 72.7%, rgb(255, 0, 0) 100%);
+  color: white;
+}
+
+/* =========================
+   MODULES
+   ========================= */
+
+.status-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.status-module {
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: rgba(2, 6, 23, 0.6);
+}
+
+.status-module-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #e5e7eb;
+}
+
+/* =========================
+   GENERIC TABLE
+   ========================= */
+
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.status-table tr:not(:last-child) {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.status-key {
+  width: 30%;
+  padding: 0.5rem 0.75rem;
+  color: #93c5fd;
+  vertical-align: top;
+  font-weight: 500;
+}
+
+.status-value {
+  padding: 0.5rem 0.75rem;
+  color: #e5e7eb;
+}
+
+/* Nested tables */
+.status-value table {
+  margin-top: 0.5rem;
+  border-left: 2px solid rgba(148, 163, 184, 0.2);
+}

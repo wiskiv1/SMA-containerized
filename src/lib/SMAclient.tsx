@@ -13,3 +13,10 @@ export async function getPartyStatus(): Promise<MarketState> {
 
   return body.status as MarketState;
 }
+
+export async function getWorkerStatus() {
+  const res = await fetch(`${BASE_URL}/server/status`);
+  const body = await res.json();
+
+  return body;
+}

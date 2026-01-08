@@ -9,7 +9,12 @@ import "./page.css";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const status = await getPartyStatus();
+  let status: string;
+  try {
+    status = await getPartyStatus();
+  } catch (e) {
+    status = "Failed to fetch worker: backend worker is offline";
+  }
 
   switch (status) {
     case "running":
@@ -24,10 +29,34 @@ export default async function Home() {
   }
 
   return (
-    <div>
-      <h1>Stock Market Anywhere</h1>
-      <p>Welcome, this is the home page! If u see this, no party is currently active or scheduled</p>
-      <p>{status}</p>
-    </div>
+    <main className="landing-container">
+      <div className="landing-card">
+        <span className="landing-badge">Service Status</span>
+
+        <h1 className="landing-title">Stock Market Anywhere</h1>
+
+        <p className="landing-subtitle">Self-hosted party brokerage for stock market party&apos;s</p>
+
+        <div className="landing-divider" />
+
+        <p className="landing-message">
+          There is currently no active or planned session.
+          <br />
+          If this is unexpected please contact the party host.
+        </p>
+
+        <p className="landing-status">
+          Backend Worker Status: <strong>{status}</strong>
+        </p>
+
+        <footer className="landing-footer">
+          For detailed system information, visit the{" "}
+          <a href="/status" className="landing-status-link">
+            status page
+          </a>
+          .
+        </footer>
+      </div>
+    </main>
   );
 }

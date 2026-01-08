@@ -7,19 +7,19 @@ import { json } from "../../utils/networking";
 
 export default function HealthHandler(req: http.IncomingMessage, res: http.ServerResponse, subPath: string) {
   if (req.method === "GET" && subPath === "status") {
+    const date = new Date(0);
+    date.setSeconds(Math.floor(process.uptime())); // specify value for SECONDS here
+    const uptime = date.toISOString().slice(11, 19);
+
     return json(res, {
       status: "alive",
-      uptime: Math.floor(process.uptime()),
+      uptime: uptime,
       node_version: process.version,
       environment: process.env.NODE_ENV,
-      SMA: {
-        name: process.env.npm_package_name,
-        version: process.env.npm_package_version,
-        calculator: {
-          name: market.getCalculatorName(),
-          version: market.getCalculatorVersion(),
-          params: market.getCalculatorParams(),
-        },
+      calculator: {
+        name: market.getCalculatorName(),
+        version: market.getCalculatorVersion(),
+        params: market.getCalculatorParams(),
       },
       meta: {
         success: true,
