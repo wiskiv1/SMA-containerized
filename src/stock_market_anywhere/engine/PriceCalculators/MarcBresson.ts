@@ -65,7 +65,7 @@ export default class PriceCalculator implements IPriceCalculator {
 
   setParameters(params: params): void {
     if (params.amplification) {
-      console.log("Setting Amplification: " + params.amplification);
+      console.log("[Calculator] Setting Amplification: " + params.amplification);
       this.amplification = params.amplification;
     }
   }
