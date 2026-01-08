@@ -46,6 +46,7 @@ export default class StockMarkerAnywhere {
 
     if (config.calculatorParams) {
       console.log("Loading Calculator Parameters");
+      console.log(config.calculatorParams);
       this.calculator.setParameters(config.calculatorParams);
     }
   } //TODO
