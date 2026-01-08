@@ -12,6 +12,8 @@ export default function CalculatorHandler(
 ) {
   const { subPath, params } = getQueryParams(suffix);
 
+  // get calculator parameters, name, etc and set aswell
+
   return json(res, {
     meta: { success: false, time: new Date(), message: "" },
   });

@@ -1,25 +1,9 @@
 import { NextResponse } from "next/server";
-import { getIntervalTime } from "@/src/lib/stock_market_anywhere/StockMarketAnywhere";
-
-type ApiResponse = {
-  interval: number;
-  time: number;
-  meta: {
-    timestamp: string;
-  };
-};
 
 // api/getInterval
 export async function GET() {
-  const i = await getIntervalTime();
+  const req = await fetch(`${process.env.MARKET_URL}/interval/get`);
+  const obj = await req.json();
 
-  const response: ApiResponse = {
-    interval: i.int,
-    time: i.when,
-    meta: {
-      timestamp: new Date().toISOString(),
-    },
-  };
-
-  return NextResponse.json(response);
+  return NextResponse.json(obj);
 }

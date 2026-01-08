@@ -19,6 +19,7 @@ async function setup() {
   buildSaleInterface();
 
   // check if already crashing
+  html_el = document.getElementsByTagName("html")[0];
   let crash = await (await fetch("/api/isCrash")).json();
   is_krach = crash.is_crash;
   if (is_krach) {
@@ -26,7 +27,6 @@ async function setup() {
   }
 
   // add crash event listener
-  html_el = document.getElementsByTagName("html")[0];
   krach_button = document.getElementById("krach");
   krach_button.addEventListener("click", async () => {
     let data = await (await fetch("/api/admin/toggleCrash")).json();
@@ -40,8 +40,8 @@ async function setup() {
   // get interval information
   let getRequest = await fetch("/api/getInterval");
   let getResponse = await getRequest.json();
-  interval = getResponse.interval;
-  nextInterval = getResponse.time;
+  interval = getResponse.intervalLength;
+  nextInterval = getResponse.nextInterval;
 
   //start loop every second
   setInterval(() => {
@@ -76,8 +76,8 @@ function loop() {
     // get new interval info
     fetch("/api/getInterval").then(async (resp) => {
       let data = await resp.json();
-      interval = data.interval;
-      nextInterval = data.time;
+      interval = data.intervalLength;
+      nextInterval = data.nextInterval;
     });
   }
 }
@@ -104,7 +104,7 @@ function buildSaleInterface() {
   for (let trigram in sale_buttons) {
     sale_buttons[trigram].dom.addEventListener("click", function () {
       let actual_price = sale_buttons[trigram].actual_price;
-      newSale(trigram);
+      newSale(trigram, Number(actual_price));
 
       new_sale_animation(getProduct(trigram).color, actual_price);
       sale_buttons[trigram].add_counter(trigram);
@@ -121,8 +121,8 @@ async function update_prices() {
   let response = await fetch("/api/getCurrentPrices");
   let prices = (await response.json()).prices;
   let new_price = {};
-  for (let p of prices) {
-    new_price[p.tri] = p.price;
+  for (let p in prices) {
+    new_price[p] = prices[p];
   }
 
   update_sales(new_price);
@@ -149,11 +149,12 @@ function update_countdown_new_price(i) {
  * Sell a drink
  * @param {string} tri
  */
-function newSale(tri) {
+function newSale(tri, pri) {
   fetch("/api/admin/sale", {
     method: "POST",
     body: JSON.stringify({
       tri: tri,
+      price: pri,
     }),
   })
     .catch((e) => {

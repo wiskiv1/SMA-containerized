@@ -55,7 +55,7 @@ export default class StockMarkerAnywhere {
    * @param product product to be added
    */
   addProduct(product: Product): void {
-    console.log("adding product " + product.tri);
+    console.log("[SMA] adding product " + product.tri);
     this.products.add(product);
   }
 
@@ -67,6 +67,7 @@ export default class StockMarkerAnywhere {
    */
   changeProduct(product: Product): void {
     this.products.change(product);
+    console.log("[SMA] changing product " + product.tri);
   }
 
   /**
@@ -75,6 +76,7 @@ export default class StockMarkerAnywhere {
    */
   deleteProduct(trigram: string): void {
     this.products.delete(trigram);
+    console.log("[SMA] deleting product " + trigram);
   }
 
   /**
@@ -135,10 +137,10 @@ export default class StockMarkerAnywhere {
     return result;
   }
 
-  planMarket(when: Date): MarketState {
+  planMarket(when: Date): void {
     this.plannedStartTime = new Date(when.getTime());
     this.status = "planned";
-    return this.getMarketStatus();
+    console.log("[SMA] planned market for: " + when.toISOString());
   }
 
   whenMarketOpen(): Date {
@@ -155,6 +157,8 @@ export default class StockMarkerAnywhere {
     this.intervalID = setInterval(() => {
       this.loop();
     }, 500);
+
+    console.log("[SMA] started market");
   }
 
   pauseMarket(): void {
@@ -163,6 +167,8 @@ export default class StockMarkerAnywhere {
     this.status = "paused";
     this.end_index();
     clearInterval(this.intervalID);
+
+    console.log("[SMA] paused market");
   }
 
   /** Reset price and sale history and set state to off, can only be called if marked is paused or state off*/

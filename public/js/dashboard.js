@@ -26,14 +26,14 @@ async function setup() {
   // get interval information
   getRequest = await fetch("/api/getInterval");
   let getResponse = await getRequest.json();
-  interval = getResponse.interval;
-  nextInterval = getResponse.time;
+  interval = getResponse.intervalLength;
+  nextInterval = getResponse.nextInterval;
 
   // get prices History
   getRequest = await fetch("/api/getPriceHistory");
   let priceHist = await getRequest.json();
-  for (let product of priceHist.prices) {
-    prices_history[product.tri] = product.price;
+  for (let product in priceHist.histories) {
+    prices_history[product] = priceHist.histories[product];
   }
 
   // todo update chart
@@ -63,14 +63,14 @@ async function loop() {
   if (timeLeft < 0 || data.is_crash != is_krach) {
     // get new interval information
     let intervalData = await (await fetch("/api/getInterval")).json();
-    interval = intervalData.interval;
-    nextInterval = intervalData.time;
+    interval = intervalData.intervalLength;
+    nextInterval = intervalData.nextInterval;
 
     // get new price information
     // in future only et current prices and append => less network traffic => watch out for clogging history
     let priceData = await (await fetch("/api/getPriceHistory")).json();
-    for (let product of priceData.prices) {
-      prices_history[product.tri] = product.price;
+    for (let product in priceData.histories) {
+      prices_history[product] = priceData.histories[product];
     }
 
     is_krach = data.is_crash;

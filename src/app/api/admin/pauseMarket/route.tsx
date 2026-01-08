@@ -1,23 +1,9 @@
 import { NextResponse } from "next/server";
-import { pauseMarket } from "@/src/lib/stock_market_anywhere/StockMarketAnywhere";
 
-type ApiResponse = {
-  succes: boolean;
-  meta: {
-    timestamp: string;
-  };
-};
-
-// api/admin/startMarket
+// api/admin/pauseMarket
 export async function GET() {
-  await pauseMarket();
+  const req = await fetch(`${process.env.MARKET_URL}/market/pause`);
+  const obj = await req.json();
 
-  const response: ApiResponse = {
-    succes: true,
-    meta: {
-      timestamp: new Date().toISOString(),
-    },
-  };
-
-  return NextResponse.json(response);
+  return NextResponse.json(obj);
 }
