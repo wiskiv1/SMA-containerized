@@ -6,7 +6,7 @@
  */
 import Products from "./Products";
 import Sales from "./Sales";
-import PriceCalculator from "./PriceCalculator";
+import PriceCalculator, { IPriceCalculator } from "./PriceCalculator";
 import type {
   MarketState,
   SMAconfig,
@@ -22,7 +22,7 @@ export default class StockMarkerAnywhere {
   private products = new Products();
   private sales = new Sales();
   private indexes: TimeInterval[] = []; // last index is most current
-  private calculator = new PriceCalculator();
+  private calculator = new PriceCalculator() as IPriceCalculator;
 
   // System parameters
   private intervalLength: number = 60000; // 60 sec default
@@ -36,14 +36,14 @@ export default class StockMarkerAnywhere {
   /* ------ CORE FUNCTIONS ------ */
 
   seed(config: SMAconfig) {
-    console.log("--- Seeding Market ---");
-
     if (config.products) {
       for (const prod of config.products) {
         this.addProduct(prod);
       }
     }
 
+    console.log("calculator name: " + this.calculator.name);
+    console.log("calculator version: " + this.calculator.version);
     if (config.calculatorParams) {
       console.log("Loading Calculator Parameters");
       console.log(config.calculatorParams);
@@ -239,6 +239,14 @@ export default class StockMarkerAnywhere {
 
   getCalculatorVersion(): string {
     return this.calculator.version;
+  }
+
+  getCalculatorParams(): object {
+    return this.calculator.getParameters();
+  }
+
+  setCalculatorParams(params: object): void {
+    this.calculator.setParameters(params);
   }
 
   /* ------ PRIVATE FUNCTIONS ------ */

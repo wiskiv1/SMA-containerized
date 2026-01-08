@@ -2,9 +2,9 @@
  * @author Witse Panneels
  * @date 2026-01-02
  */
-import "./page.css";
+import { getPartyStatus } from "../lib/SMAclient";
 import { redirect } from "next/navigation";
-import { getPartyStatus } from "@/src/lib/stock_market_anywhere/StockMarketAnywhere";
+import "./page.css";
 
 export const dynamic = "force-dynamic";
 

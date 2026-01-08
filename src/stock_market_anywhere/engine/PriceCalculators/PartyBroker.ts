@@ -12,8 +12,8 @@ export default class PriceCalculator implements IPriceCalculator {
   name = "Party Broker Calculator";
   version = "v0.1.0";
 
-  price_increase = 0.1;
-  price_decrease = 0.4;
+  private price_increase = 0.1;
+  private price_decrease = 0.4;
 
   calculateNewPrices(products: Products, sales: Sales, indexes: TimeInterval[], isCrash: boolean): Map<string, number> {
     throw new Error("Method not implemented.");

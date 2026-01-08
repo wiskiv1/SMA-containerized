@@ -15,7 +15,11 @@ export default function HealthHandler(req: http.IncomingMessage, res: http.Serve
       SMA: {
         name: process.env.npm_package_name,
         version: process.env.npm_package_version,
-        calculator: { name: market.getCalculatorName(), version: market.getCalculatorVersion() },
+        calculator: {
+          name: market.getCalculatorName(),
+          version: market.getCalculatorVersion(),
+          params: market.getCalculatorParams(),
+        },
       },
       meta: {
         success: true,
