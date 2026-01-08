@@ -19,7 +19,7 @@ export default function IntervalHandler(req: http.IncomingMessage, res: http.Ser
   // interval/set?length=20000
   if (req.method === "GET" && subPath === "set") {
     let done: boolean;
-    let msg = "";
+    let msg;
     if ("length" in params) {
       market.setIntervalTime(Number(params.length));
       done = true;
@@ -36,9 +36,17 @@ export default function IntervalHandler(req: http.IncomingMessage, res: http.Ser
   }
 
   if (req.method === "GET" && subPath === "toggleCrash") {
+    let done = false;
+    let msg;
+    try {
+      market.toggleCrash();
+      done = true;
+    } catch (e) {
+      msg = String(e);
+    }
     return json(res, {
-      is_crash: market.toggleCrash(),
-      meta: { success: true, time: new Date() },
+      is_crash: market.isCrash(),
+      meta: { success: done, time: new Date(), message: msg },
     });
   }
 

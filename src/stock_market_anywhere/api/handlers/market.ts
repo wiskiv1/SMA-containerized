@@ -9,7 +9,7 @@ export default function MarketHandler(req: http.IncomingMessage, res: http.Serve
   const { subPath, params } = getQueryParams(suffix);
 
   let done = false;
-  let msg = "";
+  let msg;
 
   if (req.method === "GET" && subPath === "plan") {
     if ("time" in params) {

@@ -39,7 +39,7 @@ export default async function ProductHandler(
   // product/delete?tri=JUP
   if (req.method === "GET" && subPath === "delete") {
     let done = false;
-    let msg = "";
+    let msg;
 
     if ("tri" in params) {
       market.deleteProduct(params.tri);
@@ -59,7 +59,7 @@ export default async function ProductHandler(
   // /product/sell?tri=JUP&price=2.5
   if (req.method === "GET" && subPath === "sell") {
     let done = false;
-    let msg = "";
+    let msg;
 
     if ("tri" in params && "price" in params) {
       try {

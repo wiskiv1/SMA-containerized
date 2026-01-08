@@ -214,7 +214,7 @@ export default class StockMarkerAnywhere {
    *
    */
   toggleCrash(): boolean {
-    if (this.status !== "running") return this.is_crash; // if not running dont swap
+    if (this.status !== "running") throw new Error("cannot toggle crash: market is not running"); // if not running dont swap
 
     this.is_crash = !this.is_crash;
     this.new_index(this.end_index()); // end current index and start new one at the same timestamp
