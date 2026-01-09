@@ -7,11 +7,7 @@ import { json, getQueryParams, readJsonBody } from "../../utils/networking";
 import { isProduct } from "../../utils/stockmarket";
 import type { PricesHistory } from "@/src/types/SMA_objects";
 
-export default async function ProductHandler(
-  req: http.IncomingMessage,
-  res: http.ServerResponse,
-  suffix: string
-) {
+export default async function ProductHandler(req: http.IncomingMessage, res: http.ServerResponse, suffix: string) {
   const { subPath, params } = getQueryParams(suffix);
 
   if (req.method === "POST" && subPath === "add") {
@@ -37,7 +33,7 @@ export default async function ProductHandler(
   }
 
   // product/delete?tri=JUP
-  if (req.method === "GET" && subPath === "delete") {
+  if (req.method === "DELETE" && subPath === "delete") {
     let done = false;
     let msg;
 

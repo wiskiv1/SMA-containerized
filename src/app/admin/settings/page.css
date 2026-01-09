@@ -1,3 +1,5 @@
+/* --- GENERAL --- */
+
 html {
   transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   scroll-behavior: smooth;
@@ -10,6 +12,11 @@ body {
 
 #page {
   padding: 30px;
+}
+
+#header h1 {
+  text-align: center;
+  margin: 20px 0;
 }
 
 #parametres {
@@ -27,11 +34,6 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-#header h1 {
-  text-align: center;
-  margin: 20px 0;
-}
-
 #footer {
   display: flex;
   justify-content: center;
@@ -46,6 +48,59 @@ body {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgb(0, 40, 70);
+}
+
+/* --- PRODUCTS --- */
+.products-table {
+  table-layout: fixed; /* important */
+  border-collapse: collapse;
+}
+
+.product-input-tri {
+  box-sizing: border-box;
+  width: 7vh;
+  font-size: 16px;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+.product-input-name {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+.product-input-price {
+  box-sizing: border-box;
+  width: 7vh;
+  font-size: 16px;
+  text-align: right;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+  appearance: textfield;
+}
+
+.product-input-button {
+  width: 100%;
+  align-self: center;
+  box-sizing: border-box;
+  color: inherit;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+.product-input-button:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* --- OLD BM CSS --- */

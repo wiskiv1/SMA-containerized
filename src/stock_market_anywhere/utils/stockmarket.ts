@@ -59,8 +59,11 @@ export function isProduct(obj: unknown): obj is Product {
 
   return (
     typeof p.tri === "string" &&
+    p.tri.length === 3 &&
     typeof p.name === "string" &&
+    p.name !== "" &&
     typeof p.defaultPrice === "number" &&
+    p.defaultPrice !== 0 &&
     typeof p.crashPrice === "number" &&
     (p.minPrice === undefined || typeof p.minPrice === "number") &&
     (p.maxPrice === undefined || typeof p.maxPrice === "number")
