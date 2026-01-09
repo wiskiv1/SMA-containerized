@@ -4,6 +4,7 @@
  */
 import "./page.css";
 import Script from "next/script";
+import Link from "next/link";
 
 export default function Sale() {
   return (
@@ -14,9 +15,10 @@ export default function Sale() {
             new prices in <span id="remaining_time_til_new_prices"></span>
           </div>
         </div>
-        <div id="button_parametres">
-          <div>Parametres</div>
-        </div>
+        {/* Full page reload on navigation */}
+        <a href="/admin/settings" id="button_parametres">
+          <div>Settings</div>
+        </a>
         <div id="krach">Krach</div>
       </div>
       <div id="drinks"></div>

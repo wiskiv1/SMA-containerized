@@ -1,27 +1,59 @@
 html {
   transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
-html.active_krach {
-  background-image: radial-gradient(
-    circle farthest-corner at -4% -12.9%,
-    rgb(76, 33, 33) 0.3%,
-    rgb(45, 18, 18) 90.2%
-  );
+body {
+  display: flex;
+  justify-content: center; /* horizontal */
 }
 
-a {
+#page {
+  padding: 30px;
+}
+
+#parametres {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.container {
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+#header h1 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#footer a {
   color: inherit;
-  text-decoration: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgb(0, 40, 70);
 }
+
+/* --- OLD BM CSS --- */
 
 .big_buttons {
   display: flex;
   flex-direction: column;
   height: 100%;
-  align-items: center;
   overflow-y: hidden;
   justify-content: center;
 }
