@@ -14,6 +14,7 @@ async function safeGetWorkerStatus() {
     return {
       status: "offline",
       error: "Background worker is unreachable",
+      message: String(e),
     };
   }
 }

@@ -12,7 +12,7 @@ export default async function Home() {
   let status: string;
   try {
     status = await getPartyStatus();
-  } catch (e) {
+  } catch {
     status = "Failed to fetch worker: backend worker is offline";
   }
 
