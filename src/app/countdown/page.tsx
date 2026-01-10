@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Script from "next/script";
 import "./page.css";
 
 export default function Countdown() {
@@ -7,9 +7,13 @@ export default function Countdown() {
       <div id="message"></div>
       <span id="countdown_value"></span>
       <span id="countdown_unit"></span>
-      <Link id="hidden_link" href="/dashboard" style={{ display: "none" }}>
+      <a id="hidden_link" href="/dashboard" style={{ display: "none" }}>
         hidden link
-      </Link>
+      </a>
+
+      <Script src="/js/countdown_MB.js" />
+      <Script src="/js/countdown_bar.js" />
+      <Script src="/js/countdown.js" />
     </div>
   );
 }

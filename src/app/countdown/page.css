@@ -8,12 +8,9 @@ body {
 }
 .bar {
   width: 30px;
-  transition: height 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   border-radius: 7px 7px 0px 0px;
   opacity: 1;
-  height: 0px;
-  transition: height 3s cubic-bezier(0.165, 0.84, 0.44, 1),
-    opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: height 3s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .grow {
   animation-duration: 2s;

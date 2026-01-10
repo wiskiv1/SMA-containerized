@@ -139,6 +139,7 @@ export default class StockMarkerAnywhere {
   }
 
   planMarket(when: Date): void {
+    if (this.status === "running") throw new Error("cannot plan market already running");
     this.plannedStartTime = new Date(when.getTime());
     this.status = "planned";
     console.log("[SMA] planned market for: " + when.toISOString());
@@ -159,7 +160,7 @@ export default class StockMarkerAnywhere {
       this.loop();
     }, 500);
 
-    console.log("[SMA] started market");
+    console.log("[SMA] started market: " + this.intervalID);
   }
 
   pauseMarket(): void {
@@ -169,7 +170,7 @@ export default class StockMarkerAnywhere {
     this.end_index();
     clearInterval(this.intervalID);
 
-    console.log("[SMA] paused market");
+    console.log("[SMA] paused market: " + this.intervalID);
   }
 
   /** Reset price and sale history and set state to off, can only be called if marked is paused or state off*/
