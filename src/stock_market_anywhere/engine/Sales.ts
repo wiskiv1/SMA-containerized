@@ -58,4 +58,11 @@ export default class Sales {
   since(since: Date): Sale[] {
     return this.between(since, new Date());
   }
+
+  /**
+   * delete all sale data, and reset object
+   */
+  reset() {
+    this.sales = [];
+  }
 }

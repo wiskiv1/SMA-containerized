@@ -249,4 +249,13 @@ export default class Products {
       }
     }
   }
+
+  /**
+   * delete all price history data and reset prices to default
+   */
+  reset() {
+    for (const [tri, product] of this.products) {
+      this.priceHistory.set(tri, [product.defaultPrice]);
+    }
+  }
 }

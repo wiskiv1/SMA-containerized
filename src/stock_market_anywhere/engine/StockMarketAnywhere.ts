@@ -176,7 +176,11 @@ export default class StockMarkerAnywhere {
 
   /** Reset price and sale history and set state to off, can only be called if marked is paused or state off*/
   resetMarket(): void {
-    throw new Error("Method not implemented."); // TODO
+    this.indexes = []; // reset indexes
+
+    this.is_crash = false;
+    this.sales.reset();
+    this.products.reset();
   }
 
   /**
