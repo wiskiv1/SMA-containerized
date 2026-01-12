@@ -5,11 +5,14 @@
 import ProductSettings from "@/src/lib/components/settings/ProductSettings";
 import GeneralSettings from "@/src/lib/components/settings/GeneralSettings";
 import ParamSettings from "@/src/lib/components/settings/ParamSettings";
-import { getCalculatorInfo } from "@/src/lib/SMAclient";
+import PriceCalculator from "@/src/stock_market_anywhere/engine/PriceCalculator";
 import "./page.css";
 
 export default async function Settings() {
-  const calcualtor = await getCalculatorInfo();
+  const calculator = new PriceCalculator();
+  const name = calculator.name;
+  const version = calculator.version;
+
   return (
     <div id="page">
       <div id="header">
@@ -42,10 +45,10 @@ export default async function Settings() {
           <h2>Price Calculator</h2>
           <p>Change the way prices are calculated 💰</p>
           <p className="info">
-            <b>Name:</b> {calcualtor.name}
+            <b>Name:</b> {name}
           </p>
           <p className="info">
-            <b>Version:</b> {calcualtor.version}
+            <b>Version:</b> {version}
           </p>
           <ParamSettings />
         </div>
