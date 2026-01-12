@@ -20,6 +20,16 @@ async function safeGetWorkerStatus() {
   }
 }
 
+async function safeGetPartyStatus() {
+  let status: string;
+  try {
+    status = await getPartyStatus();
+  } catch {
+    status = "Failed to fetch worker: backend worker is offline";
+  }
+  return status;
+}
+
 export default async function StatusPage() {
   const workerStatus = await safeGetWorkerStatus();
 
@@ -27,7 +37,7 @@ export default async function StatusPage() {
     "package name": process.env.npm_package_name,
     "package version": process.env.npm_package_version,
     "worker url": process.env.MARKET_URL,
-    "market status": await getPartyStatus(),
+    "market status": await safeGetPartyStatus(),
   };
 
   const date = new Date(0);

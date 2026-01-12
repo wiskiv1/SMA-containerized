@@ -49,7 +49,7 @@ export default class StockMarkerAnywhere {
       console.log(config.calculatorParams);
       this.calculator.setParameters(config.calculatorParams);
     }
-  } //TODO
+  }
 
   /**
    * add a new Product to the Stock Market
@@ -176,11 +176,18 @@ export default class StockMarkerAnywhere {
 
   /** Reset price and sale history and set state to off, can only be called if marked is paused or state off*/
   resetMarket(): void {
+    this.end_index();
+    clearInterval(this.intervalID); // stop loop
+
     this.indexes = []; // reset indexes
 
     this.is_crash = false;
     this.sales.reset();
     this.products.reset();
+
+    this.status = "off";
+
+    console.log("[SMA] reset market: " + this.intervalID);
   }
 
   /**
