@@ -30,6 +30,10 @@ a {
   max-width: 150px;
 }
 
+.big_buttons p {
+  max-width: 250px;
+}
+
 .choices_buttons .zoom {
   transform: scale(1);
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);

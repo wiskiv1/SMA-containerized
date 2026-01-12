@@ -129,9 +129,11 @@ export default function Admin() {
               backgroundImage: "linear-gradient(336deg, #7560a7 0%, #df6cbe 100%); height:fit-content",
             }}
           >
-            <h2>Hier info geven</h2>
-            <input type="text" />
-            <p></p>
+            <h2>Scheduling a party</h2>
+            <p>
+              Once you validate the party will be planned at the specific time. Go to /countdown to see a live animated
+              countdown
+            </p>
           </div>
         </div>
         <div style={{ marginTop: "40px" }}>
