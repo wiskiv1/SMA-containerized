@@ -18,17 +18,20 @@ export default class PriceCalculator implements IPriceCalculator {
   calculateNewPrices(products: Products, sales: Sales, indexes: TimeInterval[], isCrash: boolean): Map<string, number> {
     throw new Error("Method not implemented.");
   }
+
   getParameters(): object {
     return {
       price_increase: this.price_increase,
       price_decrease: this.price_decrease,
     };
   }
-  setParameters(params: object): void {
+
+  setParameters(params: params): void {
     throw new Error("Method not implemented.");
   }
 }
 
 type params = {
-  amplification?: number;
+  price_increase?: number;
+  price_decrease?: number;
 };
