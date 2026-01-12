@@ -39,3 +39,6 @@ export type TimeInterval = {
   length: number;
   is_krach: boolean;
 };
+
+export type JsonValue = string | number | boolean | JsonObject;
+export type JsonObject = { [key: string]: JsonValue };

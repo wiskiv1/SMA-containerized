@@ -44,3 +44,14 @@ export type PricesHistoryResponse = {
   histories: PricesHistory;
   meta: Meta;
 };
+
+export type calculatorInfoResponse = {
+  name: string;
+  version: string;
+  meta: Meta;
+};
+
+export type calculatorParamResponse = {
+  parameters: unknown;
+  meta: Meta;
+};

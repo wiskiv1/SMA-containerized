@@ -51,10 +51,6 @@ body {
 }
 
 /* --- PRODUCTS --- */
-.products-table {
-  table-layout: fixed; /* important */
-  border-collapse: collapse;
-}
 
 .product-input-tri {
   box-sizing: border-box;
@@ -100,6 +96,72 @@ body {
 }
 
 .product-input-button:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* --- Calculator Parameters --- */
+#parameters-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* horizontal */
+}
+
+.parameters-table {
+  border-collapse: collapse;
+}
+
+.parameters-value .parameters-table {
+  border-left: 2px solid rgba(101, 77, 40, 0.2);
+}
+
+.parameters-table tr:not(:last-child) {
+  border-bottom: 2px solid rgba(101, 77, 40, 0.2);
+}
+
+.parameters-key {
+  vertical-align: top;
+}
+
+.parameters-input-text {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 193px;
+  font-size: 16px;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+.parameters-input-number {
+  box-sizing: border-box;
+  width: 10vh;
+  font-size: 16px;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+  appearance: textfield;
+}
+
+.parameters-input-boolean {
+  accent-color: rgb(178, 110, 46);
+  cursor: pointer;
+}
+
+#parameters-submit {
+  width: 60%;
+  min-width: fit-content;
+  align-self: center;
+  box-sizing: border-box;
+  color: inherit;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+#parameters-submit:hover {
   background: rgba(0, 0, 0, 0.3);
 }
 

@@ -3,6 +3,7 @@
  * @date 2026-01-02
  */
 import { getWorkerStatus } from "@/src/lib/SMAclient";
+import ObjectTable from "@/src/lib/components/ObjectTable";
 import "./page.css";
 
 export const dynamic = "force-dynamic";
@@ -17,27 +18,6 @@ async function safeGetWorkerStatus() {
       message: String(e),
     };
   }
-}
-
-/**
- * Generic object renderer
- * Renders any nested object without knowing the schema
- */
-function ObjectTable({ data }: { data: Record<string, never> }) {
-  return (
-    <table className="status-table">
-      <tbody>
-        {Object.entries(data).map(([key, value]) => (
-          <tr key={key}>
-            <td className="status-key">{key}</td>
-            <td className="status-value">
-              {typeof value === "object" && value !== null ? <ObjectTable data={value} /> : String(value)}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
 }
 
 export default async function StatusPage() {
@@ -83,7 +63,7 @@ export default async function StatusPage() {
           {modules.map((module) => (
             <section key={module.name} className="status-module">
               <h2 className="status-module-title status-badge status-badge--warning">{module.name}</h2>
-              <ObjectTable data={module.data} />
+              <ObjectTable name="status" data={module.data} />
             </section>
           ))}
         </div>
