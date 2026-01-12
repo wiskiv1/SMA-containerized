@@ -5,9 +5,11 @@
 import ProductSettings from "@/src/lib/components/settings/ProductSettings";
 import GeneralSettings from "@/src/lib/components/settings/GeneralSettings";
 import ParamSettings from "@/src/lib/components/settings/ParamSettings";
+import { getCalculatorInfo } from "@/src/lib/SMAclient";
 import "./page.css";
 
 export default async function Settings() {
+  const calcualtor = await getCalculatorInfo();
   return (
     <div id="page">
       <div id="header">
@@ -19,6 +21,8 @@ export default async function Settings() {
           style={{ backgroundImage: "linear-gradient(60deg, #ff823c 0%, #ffc94c 100%)" }}
           className="container"
         >
+          <h2>General</h2>
+          <p>Change the general parameters!</p>
           <GeneralSettings />
         </div>
         <div
@@ -26,6 +30,8 @@ export default async function Settings() {
           style={{ backgroundImage: "linear-gradient(340deg, #ff823c 0%, #ffc94c 100%)" }}
           className="container"
         >
+          <h2>Products</h2>
+          <p>View, add, edit or delete what products you sell</p>
           <ProductSettings />
         </div>
         <div
@@ -33,7 +39,14 @@ export default async function Settings() {
           style={{ backgroundImage: "linear-gradient(240deg, #ff823c 0%, #ffc94c 100%)" }}
           className="container"
         >
-          {/* TODO ADD CALCULATOR NAME AND INFO USING THE SERVER*/}
+          <h2>Price Calculator</h2>
+          <p>Change the way prices are calculated 💰</p>
+          <p className="info">
+            <b>Name:</b> {calcualtor.name}
+          </p>
+          <p className="info">
+            <b>Version:</b> {calcualtor.version}
+          </p>
           <ParamSettings />
         </div>
       </div>

@@ -2,6 +2,7 @@
  * @author Witse Panneels
  */
 
+import { calculatorInfoResponse, intervalInfo } from "../types/SMA_networking";
 import { MarketState } from "../types/SMA_objects";
 
 /** */
@@ -32,7 +33,7 @@ export async function resetMarket() {
 
 /* ---- CALCULATOR ---- */
 
-export async function getCalculatorInfo() {
+export async function getCalculatorInfo(): Promise<calculatorInfoResponse> {
   const res = await fetch(`${BASE_URL}/calculator/getName`);
   const body = await res.json();
 
@@ -57,7 +58,7 @@ export async function setCalculatorParams(params: object) {
 }
 
 /* --- INTERVAL --- */
-export async function getInterval() {
+export async function getInterval(): Promise<intervalInfo> {
   const res = await fetch(`${process.env.MARKET_URL}/interval/get`);
   const body = await res.json();
 

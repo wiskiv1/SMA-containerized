@@ -176,16 +176,16 @@ export default function ProductSettings() {
         ))}
         <tr id="newProduct" className="product-table-row">
           <td>
-            <input type="text" id="Fn" className="product-input-tri" placeholder="TRI" />
+            <input type="text" id="Fn" className="product-input-tri" placeholder="TRI*" />
           </td>
           <td>
-            <input type="text" id="Fn" className="product-input-name" placeholder="Full Name" />
+            <input type="text" id="Fn" className="product-input-name" placeholder="Full Name*" />
           </td>
           <td>
-            <input type="number" id="Dprice" className="product-input-price" placeholder="2,5" />
+            <input type="number" id="Dprice" className="product-input-price" placeholder="2,5*" />
           </td>
           <td>
-            <input type="number" id="Cprice" className="product-input-price" placeholder="1" />
+            <input type="number" id="Cprice" className="product-input-price" placeholder="1*" />
           </td>
           <td>
             <input type="number" id="MINprice" className="product-input-price" placeholder="1" />
@@ -201,6 +201,11 @@ export default function ProductSettings() {
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan={8}>* mandatory fields</td>
+        </tr>
+      </tfoot>
     </table>
   );
 }

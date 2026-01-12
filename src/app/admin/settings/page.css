@@ -34,6 +34,14 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
+.container h2 {
+  margin: 0px;
+}
+
+.container p {
+  margin: 0px;
+}
+
 #footer {
   display: flex;
   justify-content: center;
@@ -48,6 +56,38 @@ body {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgb(0, 40, 70);
+}
+
+/* --- PRODUCTS --- */
+
+.general-name {
+  font-weight: 550;
+}
+
+.general-input-number {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+  appearance: textfield;
+}
+
+.general-button {
+  width: 100%;
+  align-self: center;
+  box-sizing: border-box;
+  color: inherit;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.11);
+  border: none;
+  border-radius: 10px;
+}
+
+.general-button:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* --- PRODUCTS --- */
@@ -99,7 +139,17 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
+.products-table tfoot td {
+  color: rgb(255, 236, 202);
+  font-size: small;
+}
+
 /* --- Calculator Parameters --- */
+
+#parametersContainer .info {
+  color: rgb(255, 236, 202);
+}
+
 #parameters-form {
   display: flex;
   flex-direction: column;
