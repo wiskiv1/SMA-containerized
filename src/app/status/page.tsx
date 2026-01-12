@@ -2,7 +2,7 @@
  * @author Witse Panneels
  * @date 2026-01-02
  */
-import { getWorkerStatus } from "@/src/lib/SMAclient";
+import { getWorkerStatus, getPartyStatus } from "@/src/lib/SMAclient";
 import ObjectTable from "@/src/lib/components/ObjectTable";
 import "./page.css";
 
@@ -27,6 +27,7 @@ export default async function StatusPage() {
     "package name": process.env.npm_package_name,
     "package version": process.env.npm_package_version,
     "worker url": process.env.MARKET_URL,
+    "market status": await getPartyStatus(),
   };
 
   const date = new Date(0);
