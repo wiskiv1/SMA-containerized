@@ -140,6 +140,7 @@ export default class StockMarkerAnywhere {
 
   planMarket(when: Date): void {
     if (this.status === "running") throw new Error("cannot plan market already running");
+    if (when.getTime() < Date.now()) throw new Error("Cannot plan party in the past");
     this.plannedStartTime = new Date(when.getTime());
     this.status = "planned";
     console.log("[SMA] planned market for: " + when.toISOString());
@@ -194,6 +195,7 @@ export default class StockMarkerAnywhere {
    * @param int new Time interval in ms
    */
   setIntervalTime(int: number): void {
+    console.log("[SMA] setting interval to " + int + "ms");
     if (this.status === "running") this.indexes.at(-1)!.length = int; // set current interval length
     this.intervalLength = int; // set future interval lengths
   }

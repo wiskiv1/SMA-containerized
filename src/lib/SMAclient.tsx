@@ -16,6 +16,20 @@ export async function getPartyStatus(): Promise<MarketState> {
   return body.status as MarketState;
 }
 
+export async function planMarket(when: number) {
+  const res = await fetch(`${process.env.MARKET_URL}/market/plan?time=${String(when)}`);
+  const body = await res.json();
+
+  return body;
+}
+
+export async function resetMarket() {
+  const res = await fetch(`${process.env.MARKET_URL}/market/reset`);
+  const body = await res.json();
+
+  return body;
+}
+
 /* ---- CALCULATOR ---- */
 
 export async function getCalculatorInfo() {
@@ -37,6 +51,21 @@ export async function setCalculatorParams(params: object) {
     method: "POST",
     body: JSON.stringify(params),
   });
+  const body = await res.json();
+
+  return body;
+}
+
+/* --- INTERVAL --- */
+export async function getInterval() {
+  const res = await fetch(`${process.env.MARKET_URL}/interval/get`);
+  const body = await res.json();
+
+  return body;
+}
+
+export async function setIntervalLength(newInter: number) {
+  const res = await fetch(`${process.env.MARKET_URL}/interval/set?length=${String(newInter)}`);
   const body = await res.json();
 
   return body;

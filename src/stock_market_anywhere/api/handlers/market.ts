@@ -13,8 +13,13 @@ export default function MarketHandler(req: http.IncomingMessage, res: http.Serve
 
   if (req.method === "GET" && subPath === "plan") {
     if ("time" in params) {
-      market.planMarket(new Date(Number(params.time)));
-      done = true;
+      try {
+        const when = new Date(Number(params.time));
+        market.planMarket(when);
+        done = true;
+      } catch (e) {
+        msg = String(e);
+      }
     } else {
       msg = "did not find query parameter 'time'";
     }
