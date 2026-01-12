@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  nextjs:
+    container_name: nextjs-app
+    build:
+      context: .
+      dockerfile: Dockerfile.next
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - worker
+
+  worker:
+    container_name: stock-market-worker
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env

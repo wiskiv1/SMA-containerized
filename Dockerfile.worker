@@ -1,0 +1,22 @@
+# ---- Base ----
+FROM node:20-alpine AS base
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# ---- Build ----
+FROM base AS build
+COPY . .
+RUN npm run build:worker
+
+# ---- Runtime ----
+FROM node:20-alpine AS runtime
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/build ./build
+COPY --from=build /app/package.json ./package.json
+
+EXPOSE 4000
+CMD ["node", "build/stock_market_anywhere/worker.js"]
