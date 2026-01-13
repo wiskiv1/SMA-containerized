@@ -11,6 +11,7 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 
 ## Significant changes / new features
 
+- Containerized architecture
 - Multiple clients can connect to the application, allowing multiple devices to access the dashboard or sales-panel simultaneously
 - Application can be accessed from any modern browser (including Firefox)
 - [🚧 Planned] Mobile optimized UI
@@ -19,56 +20,121 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 
 ## Installation
 
-> **Prerequisites**  
-> modern version of docker (and nextjs? and node?)
+> **Prerequisites**
+>
+> Production: **Docker** (20+ recommended) & **Docker Compose**
+>
+> Development: **Node** (18+) & npm
+
+### Production
+
+#### 1️⃣ Clone the repository
+
+```
+git clone https://github.com/your-username/SMA-Containerized.git
+```
+
+#### 2️⃣ Configure environment variables
+
+make a `.env` file based on example.env in the project root
+
+#### 3️⃣ Build and start the containers
+
+```
+docker compose build
+docker compose up -d
+```
+
+#### 4️⃣ Access the application
+
+- Next.js UI (local browser)  
+  http://localhost:4040 (port can be changed in docker-compose.yml)
+- Worker API  
+  Internal only (not exposed publicly)
+
+#### Stop the application
+
+```
+docker compose down
+```
 
 ### development
 
-npm ci
+⚠️ This is optional and intended for contributors.
 
-npm run dev / dev:worker / dev:nextjs
+#### 1️⃣ install dependencies
+
+```
+npm ci
+```
+
+#### 2️⃣ Run both services
+
+separately
+
+```
+npm run dev:worker
+npm run dev:nextjs
+```
+
+together
+
+```
+npm run dev
+```
 
 ## Project Structure
 
----
+```
+.
+├── public/
+│   └── js/                      # frontend javascript files
+│
+├── src/
+│   ├── app/                     # Next.js application
+│   ├── lib/                     # extra functions and components used by the frontend
+│   │
+│   ├── stock_market_anywhere/   # Stock market worker
+│   │   ├── api/
+│   │   ├── engine/
+│   │   ├── utils/
+│   │   ├── config.ts            # Market config for seeding
+│   │   └── worker.ts
+│   │
+│   └── types/                   # Shared data types
+│
+├── build/                       # Compiled worker output
+│
+├── Dockerfile.next
+├── Dockerfile.worker
+├── docker-compose.yml
+│
+├── tsconfig.json
+├── tsconfig.worker.json
+├── package.json
+├── .env                         # Environment file
+└── README.md
 
----
-
----
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes on deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- The worker should not be exposed publicly
+  - Only the Next.js container should be reachable from outside
+  - Recommended setup:  
+    Cloudflare Tunnel → Next.js → Worker
+- Containers are configured with:
+  - restart: unless-stopped
+  - internal Docker networking
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Credits
 
-## Learn More
+Original concept and implementation: Marc Bresson  
+https://github.com/MarcBresson/Stock-Market-Anywhere
 
-To learn more about Next.js, take a look at the following resources:
+> This project is a server-side adaptation, not a (direct) fork.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Disclaimer
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This software is provided as-is, without warranty of any kind.  
+Use at your own risk.
