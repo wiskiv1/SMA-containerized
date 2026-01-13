@@ -223,7 +223,7 @@ export default class StockMarkerAnywhere {
    * @returns the time left until the next interval
    */
   TimeUntilNextInterval(ms = false): number {
-    if (this.status === "off" || this.status === "planned") return -1;
+    if (this.getMarketStatus() === "off" || this.getMarketStatus() === "planned") return -1;
     const milliseconds_remaining = this.indexes.at(-1)!.time_start.getTime() + this.intervalLength - Date.now();
     if (ms) {
       return milliseconds_remaining;

@@ -15,8 +15,8 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 - Multiple clients can connect to the application, allowing multiple devices to access the dashboard or sales-panel simultaneously
 - Application can be accessed from any modern browser (including Firefox)
 - [🚧 Planned] Mobile optimized UI
-- [🚧 Planned] sensitive features are password protected
-- [🚧 Planned] when ordering multiple drinks, the prices are summed
+- [🚧 Planned] Sensitive features are password protected
+- [🚧 Planned] When ordering multiple drinks, the prices are summed
 
 ## Installation
 
@@ -24,7 +24,7 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 >
 > Production: **Docker** (20+ recommended) & **Docker Compose**
 >
-> Development: **Node** (18+) & npm
+> Development: **Node** (18+) & **npm**
 
 ### Production
 
