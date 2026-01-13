@@ -2,19 +2,19 @@ version: "3.9"
 
 services:
   nextjs:
-    container_name: nextjs-app
+    container_name: SMA-nextjs
     build:
       context: .
       dockerfile: Dockerfile.next
     ports:
-      - "3000:3000"
+      - "4040:3000" # host:container
     env_file:
       - .env
     depends_on:
       - worker
 
   worker:
-    container_name: stock-market-worker
+    container_name: SMA-worker
     build:
       context: .
       dockerfile: Dockerfile.worker
