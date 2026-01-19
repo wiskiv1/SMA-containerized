@@ -47,6 +47,15 @@ export default function MarketHandler(req: http.IncomingMessage, res: http.Serve
     }
   }
 
+  if (req.method === "GET" && subPath === "stop") {
+    try {
+      market.stopMarket();
+      done = true;
+    } catch (error) {
+      msg = String(error);
+    }
+  }
+
   if (req.method === "GET" && subPath === "reset") {
     try {
       market.resetMarket();
