@@ -174,10 +174,18 @@ export default class StockMarkerAnywhere {
     console.log("[SMA] paused market: " + this.intervalID);
   }
 
+  stopMarket() {
+    if (this.status === "running") throw new Error("market not paused");
+
+    this.status = "off";
+    this.plannedStartTime = undefined;
+
+    console.log("[SMA] stopped market");
+  }
+
   /** Reset price and sale history and set state to off, can only be called if marked is paused or state off*/
   resetMarket(): void {
-    this.end_index();
-    clearInterval(this.intervalID); // stop loop
+    if (this.status !== "off") throw new Error("market not stopped");
 
     this.indexes = []; // reset indexes
 
@@ -187,7 +195,7 @@ export default class StockMarkerAnywhere {
 
     this.status = "off";
 
-    console.log("[SMA] reset market: " + this.intervalID);
+    console.log("[SMA] reset market");
   }
 
   /**
