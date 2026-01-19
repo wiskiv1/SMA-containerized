@@ -1,7 +1,22 @@
 /* --- GENERAL --- */
 #content {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 > span {
+  font-weight: 500;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: 0.35rem 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+  background: linear-gradient(111.1deg, rgb(70, 0, 0) -4.8%, rgb(255, 115, 115) 82.7%, rgb(255, 123, 123) 97.2%);
 }
 
 /* --- BIGBUTTONS --- */
@@ -17,6 +32,13 @@
   transform: scale(1.05);
 }
 
+.ButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
 /* --- MarketController --- */
 #controls {
   display: flex;
@@ -24,7 +46,12 @@
   align-items: center;
   border-radius: 15px;
   padding: 20px;
-  background-image: linear-gradient(111.1deg, rgba(0, 40, 70, 1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2%);
+  background-image: linear-gradient(
+    111.1deg,
+    rgba(0, 40, 70, 1) -4.8%,
+    rgb(255, 115, 115) 82.7%,
+    rgb(255, 123, 123) 97.2%
+  );
 }
 
 #controls {
