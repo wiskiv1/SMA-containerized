@@ -17,10 +17,11 @@
   grid-gap: 40px;
 }
 
-.BigButton {
+.BigPanel {
   border-radius: 15px;
   max-width: 300px;
   padding: 20px;
+  height: auto;
 }
 
 .SmallButton {

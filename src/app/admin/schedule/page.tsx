@@ -57,7 +57,7 @@ export default function Schedule() {
       <h1>Setup the countdown</h1>
       <div className="ButtonContainer">
         <div
-          className="BigButton"
+          className="BigPanel"
           style={{
             backgroundImage: "linear-gradient(41deg, #5a5ca3  0%, #ed8ad2 100%)",
           }}
@@ -75,9 +75,9 @@ export default function Schedule() {
           <p></p>
         </div>
         <div
-          className="BigButton"
+          className="BigPanel"
           style={{
-            backgroundImage: "linear-gradient(336deg, #7560a7 0%, #df6cbe 100%); height:fit-content",
+            backgroundImage: "linear-gradient(336deg, #7560a7 0%, #df6cbe 100%)",
           }}
         >
           <h2>Scheduling a party</h2>
