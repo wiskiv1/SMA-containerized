@@ -1,96 +1,33 @@
-html {
-  transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  scroll-behavior: smooth;
-  overflow: hidden;
+/* --- GENERAL --- */
+#content {
+  width: 100%;
+  min-height: 100%;
 }
 
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.big_buttons {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  align-items: center;
-  overflow-y: hidden;
-  justify-content: center;
-}
-
-.big_buttons > div.multiple_buttons_container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  grid-gap: 40px;
-}
-.big_buttons .gradient_div {
-  padding: 20px;
+/* --- BIGBUTTONS --- */
+.BigButton {
   border-radius: 15px;
   max-width: 150px;
-}
-
-.big_buttons p {
-  max-width: 250px;
-}
-
-.choices_buttons .zoom {
-  transform: scale(1);
+  padding: 20px;
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
 }
-.choices_buttons .zoom:hover {
+
+.BigButton:hover {
   transform: scale(1.05);
 }
 
-.gradient_button {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: large;
-  padding: 14px 26px;
-  border-radius: 12px;
+/* --- MarketController --- */
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  padding: 20px;
+  background-image: linear-gradient(111.1deg, rgba(0, 40, 70, 1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2%);
 }
 
-.parametre input {
-  width: 100%;
-}
-
-#scheduler {
-  overflow: auto;
-  height: 100%;
-}
-
-input[type="date"],
-input[type="time"] {
-  background-color: rgba(255, 255, 255, 0.11);
-  border: none;
-  color: inherit;
-  font-size: large;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 4px 6px;
-}
-
-/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
-input[type="date"]::-webkit-calendar-picker-indicator {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23ffffff" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
-  padding-right: 5px !important;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 490 490"><path fill="%23ffffff" d="M245,0C109.5,0,0,109.5,0,245s109.5,245,245,245s245-109.5,245-245S380.5,0,245,0z M245,449.3c-112.6,0-204.3-91.7-204.3-204.3S132.4,40.7,245,40.7S449.3,132.4,449.3,245S357.6,449.3,245,449.3z"/><path fill="%23ffffff" d="M290.9,224.1h-25v-95.9c0-11.5-9.4-20.9-20.9-20.9s-20.9,9.4-20.9,20.9V245c0,11.5,9.4,20.9,20.9,20.9h45.9c11.5,0,20.9-9.4,20.9-20.9S302.3,224.1,290.9,224.1z"/></svg>');
-  padding-right: 5px !important;
-}
-
-#schedule_message {
-  max-width: inherit;
-}
-#schedule_message input,
-.parametre input {
-  background: rgba(0, 0, 0, 0.11);
-  border: none;
-  font-size: large;
-  border-radius: 5px;
-  padding: 4px 6px;
-  color: inherit;
+#controls {
+  --button-color: rgba(255, 255, 255, 0.74);
+  --button-background: rgba(78, 69, 69, 0.332);
 }
