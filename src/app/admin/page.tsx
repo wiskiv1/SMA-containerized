@@ -3,8 +3,9 @@
  * @date 2026-01-02
  */
 import { redirect } from "next/navigation";
-import MarketControls from "@/src/lib/components/MarketControls-v2";
+import MarketControls from "@/src/lib/components/settings/MarketControls-v2";
 import { getPartyStatus } from "@/src/lib/SMAclient";
+import Link from "next/link";
 import "./page.css";
 
 export const dynamic = "force-dynamic";
@@ -37,12 +38,30 @@ export default async function Admin() {
           style={{
             display: "none",
             backgroundImage:
-              "linear-gradient( 18deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% )",
+              "linear-gradient( 18deg, rgba(0,40,70,1) -4.8%, rgb(115, 228, 255) 82.7%, rgb(123, 255, 183) 97.2% )",
           }}
         >
           <h2>Download data</h2>
           <p>oh, you data scientist. Gotcha, you can create your best data viz with every data point.</p>
         </div>
+      </div>
+      <div className="smallButtonContainer">
+        <Link
+          href="/admin/settings"
+          style={{
+            backgroundImage: "linear-gradient(240deg, rgba(0, 40, 70, 0.85) 0%, rgba(115, 255, 234, 0.2) 97.2%)",
+          }}
+        >
+          Settings Page
+        </Link>
+        <Link
+          href="/admin/sale"
+          style={{
+            backgroundImage: "linear-gradient(60deg, rgba(0, 40, 70, 0.85) 0%, rgba(115, 255, 246, 0.2) 100%)",
+          }}
+        >
+          Sale Tool
+        </Link>
       </div>
     </div>
   );
