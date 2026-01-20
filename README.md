@@ -14,8 +14,8 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 - Containerized architecture
 - Multiple clients can connect to the application, allowing multiple devices to access the dashboard or sales-panel simultaneously
 - Application can be accessed from any modern browser (including Firefox)
+- Admin controls are password protected
 - [🚧 Planned] Mobile optimized UI
-- [🚧 Planned] Sensitive features are password protected
 - [🚧 Planned] When ordering multiple drinks, the prices are summed
 
 ## Installation
@@ -28,24 +28,24 @@ The original application can be found here: [MarcBresson/Stock-Market-Anywhere](
 
 ### Production
 
-#### 1️⃣ Clone the repository
+#### 1 Clone the repository
 
 ```
 git clone https://github.com/your-username/SMA-Containerized.git
 ```
 
-#### 2️⃣ Configure environment variables
+#### 2 Configure environment variables
 
 make a `.env` file based on example.env in the project root
 
-#### 3️⃣ Build and start the containers
+#### 3 Build and start the containers
 
 ```
 docker compose build
 docker compose up -d
 ```
 
-#### 4️⃣ Access the application
+#### 4 Access the application
 
 - Next.js UI (local browser)  
   http://localhost:4040 (port can be changed in docker-compose.yml)
@@ -62,13 +62,13 @@ docker compose down
 
 ⚠️ This is optional and intended for contributors.
 
-#### 1️⃣ install dependencies
+#### 1 install dependencies
 
 ```
 npm ci
 ```
 
-#### 2️⃣ Run both services
+#### 2 Run both services
 
 separately
 
