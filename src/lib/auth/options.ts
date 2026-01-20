@@ -6,24 +6,22 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "user@example.com",
+        username: {
+          label: "Name",
+          type: "text",
+          placeholder: "username",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
+        if (!credentials?.username || !credentials.password) {
           return null;
         }
 
-        // 🔴 Replace with DB lookup + password hash check
-        if (credentials.email === "admin@example.com" && credentials.password === "password123") {
+        if (credentials.username === process.env.LOGIN_NAME && credentials.password === process.env.LOGIN_PASSWORD) {
           return {
             id: "1",
-            email: credentials.email,
-            name: "Admin",
+            name: credentials.username,
           };
         }
 
