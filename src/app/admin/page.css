@@ -8,17 +8,6 @@
   align-items: center;
 }
 
-h2 > span {
-  font-weight: 500;
-  width: fit-content;
-  margin: 0 auto 1rem;
-  padding: 0.35rem 0.75rem;
-  letter-spacing: 0.08em;
-  border-radius: 999px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
-  background: linear-gradient(111.1deg, rgb(70, 0, 0) -4.8%, rgb(255, 115, 115) 82.7%, rgb(255, 123, 123) 97.2%);
-}
-
 /* --- BIGBUTTONS --- */
 .BigButton {
   border-radius: 15px;
@@ -40,6 +29,17 @@ h2 > span {
 }
 
 /* --- MarketController --- */
+h2 > span {
+  font-weight: 500;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: 0.35rem 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+  background: linear-gradient(111.1deg, rgba(70, 0, 0) -4.8%, rgb(255, 115, 115) 82.7%, rgb(255, 62, 62) 97.2%);
+}
+
 #controls {
   display: flex;
   flex-direction: column;
@@ -57,4 +57,24 @@ h2 > span {
 #controls {
   --button-color: rgba(255, 255, 255, 0.74);
   --button-background: rgba(78, 69, 69, 0.332);
+}
+
+/* small buttons */
+
+.smallButtonContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.smallButtonContainer > a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 20px;
+  margin: 0px 0px 20px 0px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgb(0, 40, 70);
 }
