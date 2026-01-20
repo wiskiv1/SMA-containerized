@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "types": ["next-auth"],
     "plugins": [
       {
         "name": "next"
@@ -24,13 +25,6 @@
       "@stock_market_anywhere/*": ["./src/stock_market_anywhere/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
   "exclude": ["node_modules"]
 }

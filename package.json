@@ -1,6 +1,6 @@
 {
   "name": "sma-containerized",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev:worker\" \"next dev\"",
@@ -17,6 +17,7 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "next": "16.1.1",
+    "next-auth": "^4.24.13",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

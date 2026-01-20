@@ -8,13 +8,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BigButton from "@/src/lib/components/BigButton";
 import "./page.css";
-// import "./old-page.css";
-
-/*
-OPGELET!
-om een "pagina" te laten zien moet de display op iets anders gezet worden dan "none"  
-voor alle elementen is dit "flex" buiten voor stock_market, dan moet je "block" gebruiken
-*/
 
 export default function Start() {
   /* --- Global Variables --- */
