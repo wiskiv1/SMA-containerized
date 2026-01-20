@@ -4,7 +4,7 @@
  */
 import { useEffect, useState } from "react";
 import type { marketInfo } from "@/src/types/SMA_networking";
-import BigButton from "./BigButton";
+import BigButton from "../BigButton";
 
 export default function MarketControls() {
   const [status, setStatus] = useState("loading");

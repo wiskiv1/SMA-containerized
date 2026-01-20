@@ -3,7 +3,7 @@
  * @date 2026-01-02
  */
 import { redirect } from "next/navigation";
-import MarketControls from "@/src/lib/components/MarketControls-v2";
+import MarketControls from "@/src/lib/components/settings/MarketControls-v2";
 import { getPartyStatus } from "@/src/lib/SMAclient";
 import "./page.css";
 
