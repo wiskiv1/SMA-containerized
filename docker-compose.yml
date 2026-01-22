@@ -9,6 +9,13 @@ services:
     restart: unless-stopped
     depends_on:
       - worker
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      MARKET_URL: ${MARKET_URL:-http://worker:4000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-me}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      LOGIN_NAME: ${LOGIN_NAME:-admin}
+      LOGIN_PASSWORD: ${LOGIN_PASSWORD:-admin}
 
   worker:
     container_name: SMA-worker
@@ -18,3 +25,7 @@ services:
     restart: unless-stopped
     expose:
       - "4000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      MARKET_PORT: ${MARKET_PORT:-4000}
+      MARKET_HOST: ${MARKET_HOST:-0.0.0.0}
