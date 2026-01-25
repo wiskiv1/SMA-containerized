@@ -4,7 +4,7 @@
  */
 import "./page.css";
 import Script from "next/script";
-import Link from "next/link";
+import SaleWindow from "@/src/lib/components/sale/SaleWindow";
 
 export default function Sale() {
   return (
@@ -21,10 +21,10 @@ export default function Sale() {
         </a>
         <div id="krach">Krach</div>
       </div>
-      <div id="drinks"></div>
-      <Script src="/js/sale_animation.js" />
+      <SaleWindow />
+      {/* <Script src="/js/sale_animation.js" />
       <Script src="/js/sale_button.js" />
-      <Script src="/js/adminSale.js" />
+      <Script src="/js/adminSale.js" /> */}
     </div>
   );
 }
