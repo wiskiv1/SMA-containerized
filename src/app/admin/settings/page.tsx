@@ -6,6 +6,7 @@ import ProductSettings from "@/src/lib/components/settings/ProductSettings";
 import GeneralSettings from "@/src/lib/components/settings/GeneralSettings";
 import ParamSettings from "@/src/lib/components/settings/ParamSettings";
 import PriceCalculator from "@/src/stock_market_anywhere/engine/PriceCalculator";
+import Link from "next/link";
 import "./page.css";
 
 export default async function Settings() {
@@ -54,23 +55,23 @@ export default async function Settings() {
         </div>
       </div>
       <div id="footer">
-        <a
+        <Link
           href="/admin/sale"
           style={{
             backgroundImage: "linear-gradient(240deg, rgba(0, 40, 70, 0.85) 0%, rgba(255, 200, 70, 0.2) 100%)",
           }}
         >
           Sale Tool
-        </a>
+        </Link>
 
-        <a
+        <Link
           href="/admin"
           style={{
             backgroundImage: "linear-gradient(60deg, rgba(0, 40, 70, 0.85) 0%, rgba(255, 200, 70, 0.2) 100%)",
           }}
         >
           Admin Page
-        </a>
+        </Link>
       </div>
     </div>
   );
