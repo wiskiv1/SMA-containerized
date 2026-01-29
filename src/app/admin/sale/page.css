@@ -157,11 +157,14 @@ html.active_krach #krach {
 .drink .infos .prices > div .variation {
   line-height: 1.1;
 }
-.drink .infos .prices > div .variation[sign="positive"] {
+.drink .infos .prices > div .variation.positive {
   color: #8ded39;
 }
-.drink .infos .prices > div .variation[sign="negative"] {
+.drink .infos .prices > div .variation.negative {
   color: #f02329;
+}
+.drink .infos .prices > div .variation.neutral {
+  color: inherit;
 }
 .drink .infos .add_sale {
   position: absolute;
