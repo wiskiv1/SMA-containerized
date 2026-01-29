@@ -1,15 +1,15 @@
 html {
   transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
 html.active_krach {
-  background-image: radial-gradient(
-    circle farthest-corner at -4% -12.9%,
-    rgb(76, 33, 33) 0.3%,
-    rgb(45, 18, 18) 90.2%
-  );
+  background-image: radial-gradient(circle farthest-corner at -4% -12.9%, rgb(76, 33, 33) 0.3%, rgb(45, 18, 18) 90.2%);
+}
+
+/* use other thing then content as to not have css conflicts*/
+#window {
+  width: 100%;
 }
 
 a {
@@ -78,11 +78,7 @@ a {
   position: sticky;
   left: 50%;
   transform: translateX(-50%);
-  background-image: linear-gradient(
-    193deg,
-    rgba(255, 130, 60, 0.8) 0%,
-    rgba(255, 201, 76, 0.8) 100%
-  );
+  background-image: linear-gradient(193deg, rgba(255, 130, 60, 0.8) 0%, rgba(255, 201, 76, 0.8) 100%);
   font-weight: 500;
   padding: 17px 23px;
   border-radius: 10px;
