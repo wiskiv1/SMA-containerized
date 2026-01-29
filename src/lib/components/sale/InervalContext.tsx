@@ -1,7 +1,6 @@
 "use client";
 import { createContext, ReactNode, useRef, useEffect, useState } from "react";
 import type { intervalInfo, crashInfo } from "@/src/types/SMA_networking";
-import nextAppLoader from "next/dist/build/webpack/loaders/next-app-loader";
 
 export const NextIntervalContext = createContext(0);
 
