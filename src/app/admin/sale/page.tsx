@@ -8,6 +8,7 @@ import Script from "next/script";
 import Link from "next/link";
 import SaleWindow from "@/src/lib/components/sale/SaleWindow";
 import { IntervalContext } from "@/src/lib/components/sale/InervalContext";
+import IntervalCountdown from "@/src/lib/components/IntervalCountdown";
 
 export default function Sale() {
   return (
@@ -16,10 +17,9 @@ export default function Sale() {
         <div id="top_line">
           <div id="party_info">
             <div>
-              new prices in <span id="remaining_time_til_new_prices"></span>
+              new prices in <IntervalCountdown />
             </div>
           </div>
-          {/* Full page reload on navigation */}
           <Link href="/admin/settings" id="button_parametres">
             <div>Settings</div>
           </Link>
