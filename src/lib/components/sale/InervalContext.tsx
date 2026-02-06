@@ -32,7 +32,10 @@ export function IntervalContext({ children }: { children: ReactNode }) {
       // check for crash
       fetch("/api/isCrash").then(async (resp) => {
         const data = (await resp.json()) as crashInfo;
-        if (is_krachRef.current != data.is_crash) updateKrach(data.is_crash);
+        if (is_krachRef.current != data.is_crash) {
+          updateKrach(data.is_crash);
+          // TODO add krach class to body element (dynamic css for crashes)
+        }
       });
 
       // check for new interval info
