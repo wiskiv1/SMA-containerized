@@ -8,12 +8,14 @@ export default function SaleButton({
   initial_price,
   price,
   color,
+  saleReset,
 }: {
   tri: string;
   name: string;
   price: number;
   initial_price: number;
   color: string;
+  saleReset: number;
 }) {
   const [sales, updateSales] = useState(0);
 
@@ -34,12 +36,11 @@ export default function SaleButton({
   }
 
   useEffect(() => {
-    const id = setInterval(() => {
+    async function wrapper() {
       updateSales(0);
-    }, 10000);
-
-    return () => clearInterval(id);
-  }, []);
+    }
+    wrapper();
+  }, [saleReset]);
 
   const variation = ((price - initial_price) / initial_price) * 100;
   const variationRounded = Math.round(variation);

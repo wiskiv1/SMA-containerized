@@ -18,6 +18,7 @@ export default function SaleWindow() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [prices, setPrices] = useState<Record<string, number>>({});
+  const [saleReset, setReset] = useState(0);
 
   // protection against stale variables
   useEffect(() => {
@@ -60,6 +61,8 @@ export default function SaleWindow() {
           priceMap[tri] = resp.prices[tri];
         }
         setPrices(priceMap);
+
+        setReset((s) => s + 1);
       }
 
       if (is_krach.current != crashRef.current) {
@@ -97,6 +100,7 @@ export default function SaleWindow() {
               initial_price={p.defaultPrice}
               color={color}
               price={prices[p.tri]}
+              saleReset={saleReset}
             />
           );
         })}
