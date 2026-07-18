@@ -9,6 +9,7 @@ export default function SaleButton({
   price,
   color,
   saleReset,
+  onSale,
 }: {
   tri: string;
   name: string;
@@ -16,6 +17,7 @@ export default function SaleButton({
   initial_price: number;
   color: string;
   saleReset: number;
+  onSale: (price: number) => void;
 }) {
   const [sales, updateSales] = useState(0);
 
@@ -29,6 +31,7 @@ export default function SaleButton({
     });
     const body = (await req.json()) as Meta;
     updateSales(sales + 1);
+    onSale(price);
 
     if (!body.success) {
       console.log("Failed to sell " + tri + ": " + body.message);

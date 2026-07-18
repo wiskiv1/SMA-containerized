@@ -3,7 +3,8 @@
  * @author Witse panneels
  */
 import SaleButton from "./SaleButton";
-import { useEffect, useRef, useState, useContext } from "react";
+import RunningTotal from "./RunningTotal";
+import { useCallback, useEffect, useRef, useState, useContext } from "react";
 import type { productsResponse, pricesResponse } from "@/src/types/SMA_networking";
 import type { Product, Prices } from "@/src/types/SMA_objects";
 import { NextIntervalContext, CrashContext } from "./InervalContext";
@@ -19,6 +20,21 @@ export default function SaleWindow() {
   const [products, setProducts] = useState<Product[]>([]);
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [saleReset, setReset] = useState(0);
+
+  // client-only running total for the current order; only resets on page
+  // refresh (state is lost) or when the reset button is pressed
+  const [orderTotal, setOrderTotal] = useState(0);
+  const [orderCount, setOrderCount] = useState(0);
+
+  const resetOrder = useCallback(() => {
+    setOrderTotal(0);
+    setOrderCount(0);
+  }, []);
+
+  const handleSale = useCallback((price: number) => {
+    setOrderTotal((t) => t + price);
+    setOrderCount((c) => c + 1);
+  }, []);
 
   // protection against stale variables
   useEffect(() => {
@@ -88,6 +104,7 @@ export default function SaleWindow() {
   return (
     <>
       {/* <h1>{nextInterval + " " + intervalLength + " " + crash}</h1> */}
+      <RunningTotal total={orderTotal} count={orderCount} onReset={resetOrder} />
       <div id="drinks">
         {products.map((p) => {
           const color = "hsl(" + Math.ceil((compteur * 360) / (products.length + 1)) + ", 90%, 60%)";
@@ -101,6 +118,7 @@ export default function SaleWindow() {
               color={color}
               price={prices[p.tri]}
               saleReset={saleReset}
+              onSale={handleSale}
             />
           );
         })}

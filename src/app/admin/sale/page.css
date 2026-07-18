@@ -101,6 +101,52 @@ html.active_krach #krach {
   background-color: rgb(211, 27, 31);
 }
 
+#running_total {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto 15px auto;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background-color: rgb(31, 46, 56);
+  transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-sizing: border-box;
+}
+#running_total.active {
+  background-color: rgb(43, 66, 45);
+}
+#running_total .rt_info {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+#running_total .rt_amount {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+}
+#running_total .rt_count {
+  font-size: 14px;
+  opacity: 0.7;
+}
+#running_total .rt_reset {
+  background-color: rgba(255, 91, 95, 0.31);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#running_total .rt_reset:hover {
+  background-color: rgba(255, 91, 95, 0.5);
+}
+
 #drinks {
   display: flex;
   flex-wrap: wrap;
@@ -188,6 +234,17 @@ html.active_krach #krach {
 
 /* Mobile layout */
 @media (max-width: 768px) {
+  #running_total {
+    margin: 0 10px 10px 10px;
+    padding: 10px 14px;
+  }
+  #running_total .rt_amount {
+    font-size: 26px;
+  }
+  #running_total .rt_reset {
+    padding: 10px 16px;
+  }
+
   #drinks {
     display: flex;
     flex-direction: column;
