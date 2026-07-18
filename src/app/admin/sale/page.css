@@ -1,15 +1,15 @@
 html {
   transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
 html.active_krach {
-  background-image: radial-gradient(
-    circle farthest-corner at -4% -12.9%,
-    rgb(76, 33, 33) 0.3%,
-    rgb(45, 18, 18) 90.2%
-  );
+  background-image: radial-gradient(circle farthest-corner at -4% -12.9%, rgb(76, 33, 33) 0.3%, rgb(45, 18, 18) 90.2%);
+}
+
+/* use other thing then content as to not have css conflicts*/
+#window {
+  width: 100%;
 }
 
 a {
@@ -78,11 +78,7 @@ a {
   position: sticky;
   left: 50%;
   transform: translateX(-50%);
-  background-image: linear-gradient(
-    193deg,
-    rgba(255, 130, 60, 0.8) 0%,
-    rgba(255, 201, 76, 0.8) 100%
-  );
+  background-image: linear-gradient(193deg, rgba(255, 130, 60, 0.8) 0%, rgba(255, 201, 76, 0.8) 100%);
   font-weight: 500;
   padding: 17px 23px;
   border-radius: 10px;
@@ -161,11 +157,14 @@ html.active_krach #krach {
 .drink .infos .prices > div .variation {
   line-height: 1.1;
 }
-.drink .infos .prices > div .variation[sign="positive"] {
+.drink .infos .prices > div .variation.positive {
   color: #8ded39;
 }
-.drink .infos .prices > div .variation[sign="negative"] {
+.drink .infos .prices > div .variation.negative {
   color: #f02329;
+}
+.drink .infos .prices > div .variation.neutral {
+  color: inherit;
 }
 .drink .infos .add_sale {
   position: absolute;
@@ -185,4 +184,66 @@ html.active_krach #krach {
 
 .drink:hover {
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  #drinks {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .drink {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 16px;
+  }
+
+  .drink .name {
+    flex: 1;
+    margin-right: 15px;
+  }
+
+  .drink .name .trigram {
+    display: block;
+    font-size: 22px;
+  }
+
+  .drink .name .full_name {
+    display: block;
+    font-size: 15px;
+    opacity: 0.8;
+  }
+
+  .drink .infos {
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .drink .infos .prices {
+    justify-content: flex-end;
+  }
+
+  /* Always show sales badge on touch devices */
+  .drink .infos .add_sale {
+    position: static;
+    margin-top: 8px;
+    display: inline-block;
+    border-radius: 6px;
+    height: auto;
+  }
+
+  /* Disable hover animation on mobile */
+  .drink:hover .add_sale {
+    bottom: auto;
+  }
 }

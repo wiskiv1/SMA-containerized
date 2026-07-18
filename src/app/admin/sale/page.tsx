@@ -1,30 +1,43 @@
+"use client";
 /**
  * @author Witse Panneels
  * @date 2026-01-02
  */
 import "./page.css";
-import Script from "next/script";
 import Link from "next/link";
+import SaleWindow from "@/src/lib/components/sale/SaleWindow";
+import { IntervalContext } from "@/src/lib/components/sale/InervalContext";
+import IntervalCountdown from "@/src/lib/components/IntervalCountdown";
+import type { crashInfo } from "@/src/types/SMA_networking";
 
 export default function Sale() {
+  async function handleCrash() {
+    const req = await fetch("/api/admin/toggleCrash");
+    const resp = (await req.json()) as crashInfo;
+
+    if (!resp.meta.success) {
+      console.error(resp.meta.message);
+    }
+  }
+
   return (
-    <div id="stock_market" style={{ display: "block" }}>
-      <div id="top_line">
-        <div id="party_info">
-          <div>
-            new prices in <span id="remaining_time_til_new_prices"></span>
+    <div id="window">
+      <IntervalContext>
+        <div id="top_line">
+          <div id="party_info">
+            <div>
+              new prices in <IntervalCountdown />
+            </div>
+          </div>
+          <Link href="/admin/settings" id="button_parametres">
+            <div>Settings</div>
+          </Link>
+          <div id="krach" onClick={handleCrash}>
+            Krach
           </div>
         </div>
-        {/* Full page reload on navigation */}
-        <a href="/admin/settings" id="button_parametres">
-          <div>Settings</div>
-        </a>
-        <div id="krach">Krach</div>
-      </div>
-      <div id="drinks"></div>
-      <Script src="/js/sale_animation.js" />
-      <Script src="/js/sale_button.js" />
-      <Script src="/js/adminSale.js" />
+        <SaleWindow />
+      </IntervalContext>
     </div>
   );
 }
