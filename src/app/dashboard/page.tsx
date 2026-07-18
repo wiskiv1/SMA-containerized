@@ -4,16 +4,7 @@ import "./page.css";
 
 export default function Dashboard() {
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-        margin: "0",
-        overflow: "hidden",
-        display: "flex",
-        flexFlow: "column",
-      }}
-    >
+    <div className="dashboard">
       <div id="remerciements">developed by Marc Bresson & Witse Panneels</div>
       <div className="conteneur" id="header">
         <div id="banniere">

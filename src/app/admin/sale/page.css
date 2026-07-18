@@ -185,3 +185,65 @@ html.active_krach #krach {
 .drink:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  #drinks {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .drink {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 16px;
+  }
+
+  .drink .name {
+    flex: 1;
+    margin-right: 15px;
+  }
+
+  .drink .name .trigram {
+    display: block;
+    font-size: 22px;
+  }
+
+  .drink .name .full_name {
+    display: block;
+    font-size: 15px;
+    opacity: 0.8;
+  }
+
+  .drink .infos {
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .drink .infos .prices {
+    justify-content: flex-end;
+  }
+
+  /* Always show sales badge on touch devices */
+  .drink .infos .add_sale {
+    position: static;
+    margin-top: 8px;
+    display: inline-block;
+    border-radius: 6px;
+    height: auto;
+  }
+
+  /* Disable hover animation on mobile */
+  .drink:hover .add_sale {
+    bottom: auto;
+  }
+}
